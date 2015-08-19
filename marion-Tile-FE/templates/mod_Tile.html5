@@ -3,29 +3,29 @@
   <?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
  
   <?php echo $this->hallo; ?>
-  <div class="col-sm-6 col-md-3">
-	<div class="thumbnail tile tile-medium tile-green">
+  <div class="col-md-6">
+	<div class="well">
         <a class="fa-links" href="<?php echo $href['fohn']?>">
-            <h1>Foehn</h1>
+            <h1>F&ouml;hn</h1>
 		</a>
     </div>
   </div>
-    <div class="col-sm-6 col-md-3">
-	<div class="thumbnail tile tile-medium tile-teal">
+    <div class="col-md-6">
+	<div class="well">
         <a class="fa-links" href="<?php echo $href['jprogram']?>">
             <h1>Jahresprogramm</h1>
 		</a>
     </div>
   </div>
-    <div class="col-sm-6 col-md-3">
-	<div class="thumbnail tile tile-medium tile-orange">
+    <div class="col-md-6">
+	<div class="well">
 	  <a class="fa-links" href="<?php echo $href['bericht']?>">
 	    <h1>Berichte</h1>
       </a>
     </div>
   </div>
-    <div class="col-sm-6 col-md-3">
-	<div class="thumbnail tile tile-medium tile-sun-flower">
+    <div class="col-md-6">
+	<div class="well">
 	<a class="fa-links" href="<?php echo $href['kontakt']?>">
 	  <h1>Kontakt</h1>
 	</a>

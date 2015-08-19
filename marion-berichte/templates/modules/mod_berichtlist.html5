@@ -1,0 +1,28 @@
+
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+  <?php if ($this->headline): ?>
+    <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+  <?php endif; ?>
+
+  <?php if ($this->berichte): foreach ($this->berichte as $bericht): ?>
+  <div class="bericht">
+    <?php if ($bericht['bild']): ?><figure class="bild"><?php echo $bericht['bild']; ?></figure><?php endif; ?>
+
+    <?php if ($bericht['link']): ?>
+    <h3><a href="<?php echo $bericht['link']; ?>"><?php echo $bericht['title']; ?></a></h3>
+    <?php else: ?>
+    <h3><?php echo $bericht['title']; ?></h3>
+    <?php endif; ?>
+
+    <p class="info"><?php echo $bericht['teaser']; ?></p>
+
+    <?php if ($bericht['text']): ?>
+    <div class="text-bericht">
+      <?php echo $bericht['text']; ?>
+    </div>
+    <?php endif; ?>
+  </div>
+  <?php endforeach; endif; ?>
+
+</div>

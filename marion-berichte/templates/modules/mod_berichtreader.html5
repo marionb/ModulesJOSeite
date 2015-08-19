@@ -1,0 +1,19 @@
+
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+  <?php if ($this->headline): ?>
+    <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+  <?php endif; ?>
+
+  <?php if ($this->bild): ?><figure class="bild"><?php echo $this->bild; ?></figure><?php endif; ?>
+
+  <h2><?php echo $this->title; ?></h2>
+
+  <p class="info"><?php echo $this->teaser; ?></p>
+
+  <?php if ($this->text): ?>
+  <div class="text-bericht">
+    <?php echo $this->text; ?>
+  </div>
+  <?php endif; ?>
+</div>
