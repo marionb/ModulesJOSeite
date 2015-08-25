@@ -1,26 +1,17 @@
 <?php
-
+ 
 /**
  * Back end modules
  */
-array_insert($GLOBALS['BE_MOD']['content'], 1, array
-(
-	'Berichte' => array
-	(
-		'tables' => array('tl_Berichte', 'tl_Berichte_song'),
-		'icon'   => 'system/modules/marion-berichte/assets/icon.png'
-	)
-));
-
+$GLOBALS['BE_MOD']['content']['bericht'] = array(
+	'tables' => array('tl_bericht'),
+	'icon'   => 'system/modules/marion-berichte/html/checkmark.png'
+);
 
 /**
- * Front end modules
- */
-$GLOBALS['FE_MOD']['miscellaneous']['bericht_list']   = 'ModuleBerichtList';
-$GLOBALS['FE_MOD']['miscellaneous']['bericht_reader'] = 'ModuleBerichtReader';
-
-
-/**
- * Models
- */
-$GLOBALS['TL_MODELS']['tl_berichte']      = 'BerichtModel';
+ * Definition eines Frontend Moduls
+*/
+array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0, array
+		(
+				'BerichtList' => 'ModuleBerichtList'
+		));

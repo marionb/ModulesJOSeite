@@ -1,7 +1,29 @@
-<?php
+<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
 
 /**
- * Add palettes to tl_module
+ * TYPOlight webCMS
+ *
+ * The TYPOlight webCMS is an accessible web content management system that 
+ * specializes in accessibility and generates W3C-compliant HTML code. It 
+ * provides a wide range of functionality to develop professional websites 
+ * including a built-in search engine, form generator, file and user manager, 
+ * CSS engine, multi-language support and many more. For more information and 
+ * additional TYPOlight applications like the TYPOlight MVC Framework please 
+ * visit the project website http://www.typolight.org.
+ *
+ * This file modifies the data container array of table tl_module.
+ *
+ * PHP version 5
+ * @copyright  Leo Feyer 2007
+ * @author     Leo Feyer <leo@typolight.org>
+ * @package    CdCollection
+ * @license    GPL
+ * @filesource
  */
-$GLOBALS['TL_DCA']['tl_module']['palettes']['bericht_list']   = '{title_legend},name,headline,type;{redirect_legend},jumpTo;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
-$GLOBALS['TL_DCA']['tl_module']['palettes']['bericht_reader'] = '{title_legend},name,headline,type;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+
+
+/**
+ * Add a palette to tl_module
+ */
+$GLOBALS['TL_DCA']['tl_module']['palettes']['bericht'] = 'name,type,headline;align,space,cssID';
+?>
