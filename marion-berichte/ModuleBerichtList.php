@@ -68,7 +68,8 @@ class ModuleBerichtList extends Module
             
     		$arrAus[] = array
     		(
-    			'title' => $objAus->titel,//todo check name
+    		    'id'=> $objAus->id,
+    		    'title' => $objAus->titel,//todo check name
                 'cover' => $strCover,
 				'teaser' => $objAus->teaser,
                 'text' => $objAus->text,
