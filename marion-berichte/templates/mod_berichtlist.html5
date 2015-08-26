@@ -1,19 +1,20 @@
 
-<div class="mod_ausschreibung <?php echo $this->class; ?>"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<div class="mod_bericht <?php echo $this->class; ?>"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
   <?php if ($this->headline): ?>
 
   <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
   <?php endif; ?>
 
-  <h1 class="ce_headline">N&auml;chste Touren</h1>
+  <h1 class="ce_headline">Berichte</h1>
   
-  <?php foreach ($this->arrNextEvent as $Anlass): ?>
-        <h3><strong><?php echo $Anlass['title']; ?></strong></h3>
-        <p> Beginn datum:     <strong><?php echo $Anlass['start_date']; ?></strong></p>
-        <p> End datum:      <?php echo $Anlass['end_date']; ?></p>
-        <p> <?php echo $Anlass['teaser']; ?></p>
-        <hr>
-        
-    <?php endforeach; ?>
+  <?php foreach ($this->Berichte as $Bericht): ?>
+    <p><h3><?php echo $Bericht['title']; ?></h3> </p>
+    <p>
+      <button class="modalInput" rel="#detail">Bericht im Detail</button>
+    </p>
+    <hr>
+</div>
+       
+  <?php endforeach; ?>
 
 </div>

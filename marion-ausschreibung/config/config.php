@@ -5,7 +5,7 @@
  */
 $GLOBALS['BE_MOD']['content']['ausschreibung'] = array(
 	'tables' => array('tl_ausschreibung'),
-	'icon'   => 'JOSeite/system/modules/marion-ausschreibung/html/checkmark.png'
+	'icon'   => 'system/modules/marion-ausschreibung/html/checkmark.png'
 );
 
 /**

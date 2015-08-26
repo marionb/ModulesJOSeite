@@ -10,6 +10,15 @@
 
 
 /**
+ * Register the classes
+ */
+ClassLoader::addClasses(array
+(
+	'Contao\ModuleBerichtList' => 'system/modules/marion-berichte/ModuleBerichtList.php',
+));
+
+
+/**
  * Register the templates
  */
 TemplateLoader::addFiles(array

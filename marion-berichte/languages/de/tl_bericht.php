@@ -25,17 +25,11 @@
 /**
  * Fields
  */
-
-$GLOBALS['TL_LANG']['tl_bericht']['titel'] = array('Titel', 'Titel des Berichts');
-//TODO 
-//$GLOBALS['TL_LANG']['tl_bericht']['start_date'] = array('Startdatum', 'Startdatum  in der Form YYYY-MM-DD');
+$GLOBALS['TL_LANG']['tl_bericht']['titel'] = array('Titel', 'Bericht Titel');
+$GLOBALS['TL_LANG']['tl_bericht']['bild'] = array('Bild', 'Foto zum Bericht');
 $GLOBALS['TL_LANG']['tl_bericht']['teaser'] = array('Teaser', 'Kurtztext zum Beschrieb des Berichtes');
 $GLOBALS['TL_LANG']['tl_bericht']['text'] = array('Text', 'Berichttext');
-/**
- * Legends
- */
-$GLOBALS['TL_LANG']['tl_bericht']['titel'] = 'Einstellungen f&uumlr Bericht';
-
+$GLOBALS['TL_LANG']['tl_bericht']['PDF'] = array('PDF Download', 'PDF version von dem Bericht zum runter laden');
 /**
  * Buttons
  */

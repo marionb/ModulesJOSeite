@@ -33,11 +33,6 @@ $GLOBALS['TL_LANG']['tl_ausschreibung']['anmelde_schluss'] = array('Anmeldeschlu
 $GLOBALS['TL_LANG']['tl_ausschreibung']['teaser'] = array('Teaser', 'Kurtztext zum Beschrieb der Ausschreibung');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['text'] = array('Text', 'Ausschreibngstext');
 /**
- * Legends
- */
-$GLOBALS['TL_LANG']['tl_ausschreibung']['titel'] = 'Einstellungen fuer Ausschreibungen';
-
-/**
  * Buttons
  */
 $GLOBALS['TL_LANG']['tl_ausschreibung']['new']    = array('Neuer Anlass', 'Einen neuen Anlass hinzuf&uuml;gen');
