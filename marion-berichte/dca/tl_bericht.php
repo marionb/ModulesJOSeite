@@ -26,13 +26,13 @@ $GLOBALS['TL_DCA']['tl_berichte'] = array
 		'sorting' => array
 		(
 			'mode'                    => 1,
-			'fields'                  => array('title'),
+			'fields'                  => array('titel'),
 			'flag'                    => 1,
 			'panelLayout'             => 'filter;search,limit'
 		),
 		'label' => array
 		(
-			'fields'                  => array('title', 'teaser'),
+			'fields'                  => array('titel', 'teaser'),
 			'format'                  => '%s <span style="color:#b3b3b3;padding-left:3px;">[%s]</span>'
 		),
 		'global_operations' => array
@@ -98,9 +98,9 @@ $GLOBALS['TL_DCA']['tl_berichte'] = array
 		(
 			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
-		'title' => array
+		'titel' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_berichte']['title'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_berichte']['titel'],
 			'exclude'                 => true, //blendet das feld fuer regulaere Nutzer aus
 			'search'                  => true,
 			'inputType'               => 'text',
@@ -121,7 +121,7 @@ $GLOBALS['TL_DCA']['tl_berichte'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_berichte']['bild'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']),
+			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']), //TODO this is not an image
 			'sql'                     => "binary(16) NULL",
 		),
 		
