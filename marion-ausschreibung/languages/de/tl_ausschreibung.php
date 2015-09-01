@@ -25,13 +25,26 @@
 /**
  * Fields
  */
-
-$GLOBALS['TL_LANG']['tl_ausschreibung']['titel'] = array('Titel', 'Titel der Tour');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['titel'] = array('Touren Bezeichnung', 'erscheint unter diesem Namen im Jahresprogramm');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['start_date'] = array('Startdatum', 'Startdatum  in der Form YYYY-MM-DD');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['end_date'] = array('Enddatum', 'Enddatum in der Form YYYY-MM-DD');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['end_date'] = array('Enddatum', 'Enddatum, f&uuml;r Mehrtägige touten, in der Form YYYY-MM-DD');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['anmelde_schluss'] = array('Anmeldeschluss', 'Datum in der Form YYYY-MM-DD');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['teaser'] = array('Teaser', 'Kurtztext zum Beschrieb der Ausschreibung');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['teaser'] = array('Teaser', 'Wird im Jahresprogramm und auf der Webseite verwendet um auf die Tour aumerksam zu machen');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['ziel']=array('Gipfel/Klettergebiet','Wichtig für Anmeldung bei J+S; erscheint nicht auf der Website');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['schwierigkeit']=array('Schwierikeitsgrad','Schwierigkeitsgrad gemäss Führer. Verschiedene Skalen sind auf ... zu finden.');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['route']=array('z.B Nummer aus SAC-Führer oder Beschreibung mit Quelle. Wird für J+S Anmeldung verwendet','');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['vorname_org']=array('Vorname','');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['name_org']=array('Name','');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['email-org']=array('E-mail','');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['leiter_verantwortlich']=array('Leiter','');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['leiter']=array('','');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['text'] = array('Text', 'Ausschreibngstext');
+
+
+//$GLOBALS['TL_LANG']['tl_ausschreibung'][]=array('','');
+//TODO add translation for:
+// {Touren Beschrieb}, teaser, ziel, schwierigkeit, route; {Kontakt/Organisator}, vorname_org, name_org, email-org; {Leitung und Verantwortliche}, leiter_verantwortlich, leiter; {weitere Angaben}, text, treffpunkt, ruekkehr, verpflegung,anforderung, kosten, material, anmeldung'
+
 /**
  * Buttons
  */

@@ -121,13 +121,13 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
 
 
              // Palettes
-       'palettes' => array(
+        'palettes' => array(
               '__selector__' => array(),
-              'default' => '{Titel}, titel; {Kontakt/Organisator}, vorname_org, name_org, email-org; {leiter}, leiter_verantwortlich, leiter; {Zeit}, end_date, start_date, anmelde_schluss;{Felder} ziel, route, schwierigkeit;{Beschreibung},teaser, text',//TODO
+              'default' => '{Titel}, titel; {Zeit}, start_date, end_date, anmelde_schluss; {Touren Beschrieb}, teaser, ziel, schwierigkeit, route; {Kontakt/Organisator}, vorname_org, name_org, email-org; {Leitung und Verantwortliche}, leiter_verantwortlich, leiter; {weitere Angaben}, text, treffpunkt, ruekkehr, verpflegung,anforderung, kosten, material, anmeldung',//TODO
        ),
 
 
-       // Fields
+      // Fields
        'fields' => array(
 				'id' => array(
 					'sql'           => "int(10) unsigned NOT NULL auto_increment"
@@ -191,11 +191,28 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
 					'search'                  => true,
 					'inputType'               => 'text',
 					'eval'                    => array(
-							'maxlength'		  =>200, 
+							'maxlength'		  =>200, //TODO check if this number is OK
 							'tl_class'		  =>'long',
 							'mandatory'		  =>true
 							),
 					'sql'                     => "varchar(200) NOT NULL default ''"
+				),
+				'type'  => array
+				(
+					'label'     => &$GLOBALS['TL_LANG']['tl_ausschreibung']['type'],
+					'inputType' => 'select',
+					'exclude'   => true,
+					'sorting'   => true,
+					'flag'      => 1,
+					'options'   => array('remote', 'local'),
+					'reference' => &$GLOBALS['TL_LANG']['tl_ausschreibung'],
+					'eval'      => array(
+						'includeBlankOption' => true,
+						'submitOnChange'     => true,
+						'mandatory'          => true,
+						'tl_class'           => 'w50',
+					),
+					'sql'       => "varchar(10) NOT NULL default ''"
 				),
        		    'ziel' => array(
        		    		'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['ziel'],
@@ -203,9 +220,9 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        		    		'search'                  => true,
        		    		'inputType'               => 'text',
        		    		'eval'                    => array(
-       		    				'maxlength'		  =>200,
+       		    				'maxlength'		  => 100,
        		    				'tl_class'		  =>'long',
-       		    				'mandatory'		  =>true
+       		    				'mandatory'		  => true
        		    		),
        		    		'sql'                     => "varchar(200) NOT NULL default ''"
        		    ),
@@ -215,9 +232,9 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'search'                  => true,
        				'inputType'               => 'text',
        				'eval'                    => array(
-       						'maxlength'		  =>200,
+       						'maxlength'		  => 100,
        						'tl_class'		  =>'long',
-       						'mandatory'		  =>true
+       						'mandatory'		  => true
        				),
        				'sql'                     => "varchar(200) NOT NULL default ''"
        		),
@@ -263,9 +280,9 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'search'                  => true,
        				'inputType'               => 'text',
        				'eval'                    => array(
-       						'maxlength'		  => 50,
+       						'maxlength'		  => 100,
        						'tl_class'		  =>'long',
-       						'mandatory'		  =>true
+       						'mandatory'		  => false
        				),
        				'sql'                     => "varchar(200) NOT NULL default ''"
        		),
@@ -277,7 +294,7 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'eval'                    => array(
        						'maxlength'		  => 50,
        						'tl_class'		  =>'long',
-       						'mandatory'		  =>true
+       						'mandatory'		  => true
        				),
        				'sql'                     => "varchar(200) NOT NULL default ''"
        		),
@@ -287,9 +304,9 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'search'                  => true,
        				'inputType'               => 'text',
        				'eval'                    => array(
-       						'maxlength'		  => 50,
+       						'maxlength'		  => 500,
        						'tl_class'		  =>'long',
-       						'mandatory'		  =>true
+       						'mandatory'		  => false
        				),
        				'sql'                     => "varchar(200) NOT NULL default ''"
        		),
@@ -307,9 +324,9 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'search'                  => true,
        				'inputType'               => 'text',
        				'eval'                    => array(
-       						'maxlength'		  => 50,
+       						'maxlength'		  => 100,
        						'tl_class'		  =>'long',
-       						'mandatory'		  =>true
+       						'mandatory'		  => false
        				),
        				'sql'                     => "varchar(200) NOT NULL default ''"
        		),
@@ -319,9 +336,9 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'search'                  => true,
        				'inputType'               => 'text',
        				'eval'                    => array(
-       						'maxlength'		  => 50,
+       						'maxlength'		  => 100,
        						'tl_class'		  =>'long',
-       						'mandatory'		  =>true
+       						'mandatory'		  => false
        				),
        				'sql'                     => "varchar(200) NOT NULL default ''"
        		),
@@ -331,9 +348,9 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'search'                  => true,
        				'inputType'               => 'text',
        				'eval'                    => array(
-       						'maxlength'		  => 50,
+       						'maxlength'		  => 500,
        						'tl_class'		  =>'long',
-       						'mandatory'		  =>true
+       						'mandatory'		  => false
        				),
        				'sql'                     => "varchar(200) NOT NULL default ''"
        		),
@@ -343,9 +360,9 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'search'                  => true,
        				'inputType'               => 'text',
        				'eval'                    => array(
-       						'maxlength'		  => 50,
+       						'maxlength'		  => 200,
        						'tl_class'		  =>'long',
-       						'mandatory'		  =>true
+       						'mandatory'		  => false
        				),
        				'sql'                     => "varchar(200) NOT NULL default ''"
        		),
@@ -355,9 +372,9 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'search'                  => true,
        				'inputType'               => 'text',
        				'eval'                    => array(
-       						'maxlength'		  => 50,
+       						'maxlength'		  => 500,
        						'tl_class'		  =>'long',
-       						'mandatory'		  =>true
+       						'mandatory'		  => true
        				),
        				'sql'                     => "varchar(200) NOT NULL default ''"
        		),
@@ -367,9 +384,9 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'search'                  => true,
        				'inputType'               => 'text',
        				'eval'                    => array(
-       						'maxlength'		  => 50,
+       						'maxlength'		  => 500,
        						'tl_class'		  =>'long',
-       						'mandatory'		  =>true
+       						'mandatory'		  => false
        				),
        				'sql'                     => "varchar(200) NOT NULL default ''"
        		),
@@ -379,9 +396,9 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'search'                  => true,
        				'inputType'               => 'text',
        				'eval'                    => array(
-       						'maxlength'		  => 50,
+       						'maxlength'		  => 500,
        						'tl_class'		  =>'long',
-       						'mandatory'		  =>true
+       						'mandatory'		  => false
        				),
        				'sql'                     => "varchar(200) NOT NULL default ''"
        		),
@@ -391,9 +408,9 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'search'                  => true,
        				'inputType'               => 'text',
        				'eval'                    => array(
-       						'maxlength'		  => 50,
+       						'maxlength'		  => 500,
        						'tl_class'		  =>'long',
-       						'mandatory'		  =>true
+       						'mandatory'		  => fals
        				),
        				'sql'                     => "varchar(200) NOT NULL default ''"
        		),
