@@ -14,45 +14,15 @@ class ModuleAusschreibungList extends Module
      * Template
      * @var string
      */
-    protected $strTemplate = 'mod_ausschreibunglist';
- 
- 
-    /**
-     * Display a wildcard in the back end
-     * @return string
-     */
-    public function generate()
-    {
-        if (TL_MODE == 'BE')
-        {
-            $objTemplate = new \BackendTemplate('be_wildcard');
- 
-            $objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['ausschreibung_list'][0]) . ' ###';
-            $objTemplate->title = $this->headline;
-            $objTemplate->id = $this->id;
-            $objTemplate->link = $this->name;
-            $objTemplate->date = $this->date;
-            $objTemplate->href = 'contao/main.php?do=themes&table=tl_module&act=edit&id=' . $this->id;
- 
-            return $objTemplate->parse();
-        }
- 
-        return parent::generate();
-    }
- 
- 
-    
-    
-    
-    
-    
+    protected $strTemplate = 'mod_ausschreibunglistfull';
+
     /**
      * Generate the module
      */
     protected function compile()
     {
         
-    	/*//die ganze Tabelle
+    	//die ganze Tabelle
     	$arrAus = array();
     	$objAus = $this->Database->execute("SELECT * FROM tl_ausschreibung ORDER BY start_date ASC");
     	
@@ -71,25 +41,7 @@ class ModuleAusschreibungList extends Module
     	if (TL_MODE == 'FE') {
     		$this->Template->fmdId = $this->id;
     		$this->Template->Ausschreibung = $arrAus;
-    	}*/
-    	$arrNextEvent = array();
-    	$objAus = $this->Database->prepare("SELECT * FROM tl_ausschreibung ORDER BY start_date DSC")->limit(3)->execute(time());
-    	
-    	while ($objAus->next()) {
-    		$arrNextEvent[] = array
-    		(
-    			'title' => $objAus->titel,
-                'start_date' => $this->datumswandler(date('Y-m-d', (int)$objAus->start_date)),
-                'end_date' => $this->datumswandler(date('Y-m-d', (int)$objAus->end_date)),
-                'anmelde_schluss' => $objAus->anmelde_schluss,
-                //'cover' => $strCover,
-				'teaser' => $objAus->teaser,
-    		);
-    	}
-    	$this->Template->arrNextEvent = $arrNextEvent;
-    	}
-    	
-    	
+    	}   	
  
             //coover Image
             /*$strCover = '';
