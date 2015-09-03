@@ -123,7 +123,7 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
              // Palettes
         'palettes' => array(
               '__selector__' => array(),
-              'default' => '{Titel}, titel; {Zeit}, start_date, end_date, anmelde_schluss; {Tourenbeschrieb}, teaser, ziel, schwierigkeit, route, teilnehmer, type; {Angaben zum Organisator (Diese Person ist zustaendig fuer die Administration)}, vorname_org, name_org, email_org; {Leitung und Verantwortliche}, leiter_verantwortlich, leiter; {Detail angaben falls bereits bekannt}, text, treffpunkt, ruekkehr, verpflegung,anforderung, kosten, material, anmeldung',//TODO
+              'default' => '{Titel}, titel; {Zeit}, start_date, end_date, anmelde_schluss; {Tourenbeschrieb}, teaser, ziel, schwierigkeit, route, teilnehmer, type; {Angaben zum Organisator (Diese Person ist zustaendig fuer die Administration)}, vorname_org, name_org, email_org; {Leitung und Verantwortliche}, leiter_verantwortlich, leiter; {Detail angaben falls bereits bekannt}, text, treffpunkt, ruekkehr, verpflegung,anforderung, kosten, material, anmeldung; {Bilder hoch laden}, bilder',//TODO
        ),
 
 
@@ -399,6 +399,7 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        		),
        		'material' => array(
        				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['material'],
+       				'default'				  => 'Helm, Klettergurt, Steigeisen, Kletterfinken, 3 Schraubkarabiner, Sonnencreme, ...',
        				'exclude'                 => true,
        				'search'                  => true,
        				'inputType'               => 'text',
@@ -422,17 +423,24 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'sql'                     => "varchar(200) NOT NULL default ''"
        		),
 			'anmeldung' => array(
-       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['anmeldung'],
-       				'exclude'                 => true,
-       				'search'                  => true,
-       				'inputType'               => 'text',
-       				'eval'                    => array(
-       						'maxlength'		  => 500,
-       						'tl_class'		  =>'long',
-       						'mandatory'		  => fals
-       				),
-       				'sql'                     => "varchar(200) NOT NULL default ''"
+					'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['anmeldung'],
+					'exclude'                 => true,
+					'search'                  => false,
+					'inputType'               => 'textarea',
+					'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr', 'mandatory' => true),
+					'sql'                     => "varchar(200) NOT NULL default ''"
        		),
+       		'bilder' => array
+       		(
+       				'label'                   => &$GLOBALS['TL_LANG']['tl_downloads']['bilder'],
+       				'exclude'                 => true,
+       				'inputType'               => 'fileTree',
+       				'search'                  => true,
+       				'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes'], 'mandatory'=>true),
+       				'sql'                     => "varchar(255) NOT NULL default ''"
+       		
+       				//			'sql'                     => "binary(16) NULL",
+       		)
        )
 );
 

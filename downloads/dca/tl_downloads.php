@@ -84,7 +84,7 @@ $GLOBALS['TL_DCA']['tl_downloads'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'default'                     => '{title_legend},title,description;{download_legend},href,sort_order'
+		'default'                     => '{title_legend},title,description;{download_legend},href,type,sort_order'
 	),
 
 	// Fields
@@ -108,6 +108,23 @@ $GLOBALS['TL_DCA']['tl_downloads'] = array
 			'search'                  => true,
 			'eval'                    => array('mandatory'=>true, 'unique'=>true, 'decodeEntities'=>true, 'maxlength'=>255, 'tl_class'=>'long'),
 			'sql'                     => "varchar(255) NOT NULL default ''"
+		),
+		'type'  => array
+		(
+					'label'     => &$GLOBALS['TL_LANG']['tl_ausschreibung']['type'],
+					'inputType' => 'radio',
+					'exclude'   => true,
+					'sorting'   => true,
+					//'flag'      => 1,
+					'options'   => array('Download', 'Foehn'),
+					//'reference' => &$GLOBALS['TL_LANG']['tl_ausschreibung'],
+					'eval'      => array(
+							'includeBlankOption' => false,
+							//'submitOnChange'     => true,
+							'mandatory'          => true,
+							'tl_class'           => 'w50'
+					),
+					'sql'       => "varchar(10) NOT NULL default ''"
 		),
 		'description' => array
 		(
@@ -148,7 +165,7 @@ $GLOBALS['TL_DCA']['tl_downloads'] = array
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
                         'search'                  => true,
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']),
+			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes'], 'mandatory'=>true),
 			'sql'                     => "varchar(255) NOT NULL default ''"
 
 //			'sql'                     => "binary(16) NULL",
