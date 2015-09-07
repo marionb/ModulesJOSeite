@@ -41,7 +41,7 @@ class ModuleAusschreibungList extends Module
     	if (TL_MODE == 'FE') {
     		$this->Template->fmdId = $this->id;
     		$this->Template->Ausschreibung = $arrAus;
-    	}   	
+    	} }  	
  
             //coover Image
             /*$strCover = '';
