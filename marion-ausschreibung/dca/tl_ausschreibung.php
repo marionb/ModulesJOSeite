@@ -123,7 +123,7 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
              // Palettes
         'palettes' => array(
               '__selector__' => array(),
-              'default' => '{Titel}, titel; {Zeit}, start_date, end_date, anmelde_schluss; {Tourenbeschrieb}, teaser, ziel, schwierigkeit, route, teilnehmer, type; {Angaben zum Organisator (Diese Person ist zustaendig fuer die Administration)}, vorname_org, name_org; {Leitung und Verantwortliche}, leiter_verantwortlich, leiter; {Detail angaben falls bereits bekannt}, text, treffpunkt, ruekkehr, verpflegung,anforderung, kosten, material, anmeldung; {Bilder hoch laden}, bilder',//TODO
+              'default' => '{Titel}, titel; {Zeit}, start_date, end_date, anmelde_schluss; {Tourenbeschrieb}, teaser, ziel, schwierigkeit, route, teilnehmer, type; {Angaben zum Organisator (Diese Person ist zustaendig fuer die Administration)}, vorname_org, name_org; {Leitung und Verantwortliche}, leiter_verantwortlich, leiter; {Detailangaben falls bereits bekannt}, text, treffpkt, rueckkehr, verpflegung, anforderung, kosten, material, anmeldung; {Bilder hoch laden}, bilder',//TODO
        ),
 
 
@@ -191,11 +191,11 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
 					'search'                  => true,
 					'inputType'               => 'text',
 					'eval'                    => array(
-							'maxlength'		  =>200, //TODO check if this number is OK
+							'maxlength'		  => 400, //TODO check if this number is OK
 							'tl_class'		  =>'long',
 							'mandatory'		  =>true
 							),
-					'sql'                     => "varchar(200) NOT NULL default ''"
+					'sql'                     => "varchar(400) NOT NULL default ''"
 				),
 				'type'  => array
 				(
@@ -224,7 +224,7 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        		    				'tl_class'		  =>'long',
        		    				'mandatory'		  => true
        		    		),
-       		    		'sql'                     => "varchar(200) NOT NULL default ''"
+       		    		'sql'                     => "varchar(100) NOT NULL default ''"
        		    ),
        		'schwierigkeit' => array(
        				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['schwierigkeit'],
@@ -236,7 +236,7 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        						'tl_class'		  =>'long',
        						'mandatory'		  => true
        				),
-       				'sql'                     => "varchar(200) NOT NULL default ''"
+       				'sql'                     => "varchar(100) NOT NULL default ''"
        		),
        		'route' => array(
        				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['route'],
@@ -244,11 +244,11 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'search'                  => true,
        				'inputType'               => 'text',
        				'eval'                    => array(
-       						'maxlength'		  =>200,
+       						'maxlength'		  => 500,
        						'tl_class'		  =>'long',
        						'mandatory'		  =>true
        				),
-       				'sql'                     => "varchar(200) NOT NULL default ''"
+       				'sql'                     => "varchar(500) NOT NULL default ''"
        		),
        		'teilnehmer'  => array
        		(
@@ -264,9 +264,11 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        						//'submitOnChange'     => true,
        						'mandatory'          => true,
        						'multiple'			 => true,
+       						'size'				 => 4,
+       						'fieldType' 		 => 'checkbox',
        						'tl_class'           => 'w50'
        				),
-       				'sql'       => "varchar(10) NOT NULL default ''"
+       				'sql'       => "blob NULL" //"varchar(30) NOT NULL default ''"
        		),
        		'name_org' => array(
        				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['name_org'],
@@ -278,7 +280,7 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        						'tl_class'		  =>'long',
        						'mandatory'		  =>true
        				),
-       				'sql'                     => "varchar(200) NOT NULL default ''"
+       				'sql'                     => "varchar(50) NOT NULL default ''"
        		),
        		'vorname_org' => array(
        				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['vorname_org'],
@@ -290,20 +292,7 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        						'tl_class'		  =>'long',
        						'mandatory'		  =>true
        				),
-       				'sql'                     => "varchar(200) NOT NULL default ''"
-       		),
-       		'email_org' => array(
-       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['email_org'],
-       				'exclude'                 => true,
-       				'search'                  => true,
-       				'inputType'               => 'text',
-       				'eval'                    => array(
-       						'maxlength'		  => 100,
-       						'tl_class'		  =>'long',
-       						'rgxp'			  => 'email',
-       						'mandatory'		  => false
-       				),
-       				'sql'                     => "varchar(200) NOT NULL default ''"
+       				'sql'                     => "varchar(50) NOT NULL default ''"
        		),
        		'leiter_verantwortlich' => array(
        				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['leiter_verantwortlich'],
@@ -315,7 +304,7 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        						'tl_class'		  =>'long',
        						'mandatory'		  => true
        				),
-       				'sql'                     => "varchar(200) NOT NULL default ''"
+       				'sql'                     => "varchar(50) NOT NULL default ''"
        		),
        		'leiter' => array(
        				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['leiter'],
@@ -343,7 +332,7 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        						'tl_class'		  =>'long',
        						'mandatory'		  => false
        				),
-       				'sql'                     => "varchar(200) NOT NULL default ''"
+       				'sql'                     => "varchar(100) NOT NULL default ''"
        		),
        		'rueckkehr' => array(
        				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['rueckkehr'],
@@ -355,7 +344,7 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        						'tl_class'		  =>'long',
        						'mandatory'		  => false
        				),
-       				'sql'                     => "varchar(200) NOT NULL default ''"
+       				'sql'                     => "varchar(100) NOT NULL default ''"
        		),
        		'verpflegung' => array(
        				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['verpflegung'],
@@ -367,7 +356,7 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        						'tl_class'		  =>'long',
        						'mandatory'		  => false
        				),
-       				'sql'                     => "varchar(200) NOT NULL default ''"
+       				'sql'                     => "varchar(500) NOT NULL default ''"
        		),
        		'anforderung' => array(
        				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['anforderung'],
@@ -384,47 +373,26 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        		'kosten' => array(
        				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['kosten'],
        				'exclude'                 => true,
-       				'search'                  => true,
-       				'inputType'               => 'text',
-       				'eval'                    => array(
-       						'maxlength'		  => 500,
-       						'tl_class'		  =>'long',
-       						'mandatory'		  => true
-       				),
-       				'sql'                     => "varchar(200) NOT NULL default ''"
+       				'search'                  => false,
+       				'inputType'               => 'textarea',
+       				'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
+       				'sql'                     => "text NULL"
        		),
        		'material' => array(
        				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['material'],
-       				'default'				  => 'Helm, Klettergurt, Steigeisen, Kletterfinken, 3 Schraubkarabiner, Sonnencreme, ...',
        				'exclude'                 => true,
-       				'search'                  => true,
-       				'inputType'               => 'text',
-       				'eval'                    => array(
-       						'maxlength'		  => 500,
-       						'tl_class'		  =>'long',
-       						'mandatory'		  => false
-       				),
-       				'sql'                     => "varchar(200) NOT NULL default ''"
-       		),
-			'material' => array(
-       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['material'],
-       				'exclude'                 => true,
-       				'search'                  => true,
-       				'inputType'               => 'text',
-       				'eval'                    => array(
-       						'maxlength'		  => 500,
-       						'tl_class'		  =>'long',
-       						'mandatory'		  => false
-       				),
-       				'sql'                     => "varchar(200) NOT NULL default ''"
+       				'search'                  => false,
+       				'inputType'               => 'textarea',
+       				'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
+       				'sql'                     => "text NULL"
        		),
 			'anmeldung' => array(
 					'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['anmeldung'],
 					'exclude'                 => true,
-					'search'                  => false,
-					'inputType'               => 'textarea',
-					'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr', 'mandatory' => true),
-					'sql'                     => "varchar(200) NOT NULL default ''"
+       				'search'                  => false,
+       				'inputType'               => 'textarea',
+       				'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
+       				'sql'                     => "text NULL"
        		),
        		'bilder' => array
        		(
