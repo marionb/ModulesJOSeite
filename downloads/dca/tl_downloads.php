@@ -116,7 +116,7 @@ $GLOBALS['TL_DCA']['tl_downloads'] = array
 					'exclude'   => true,
 					'sorting'   => true,
 					//'flag'      => 1,
-					'options'   => array('Download', 'Foehn'),
+					'options'   => array('Download', 'F&ouml;	hn'),
 					//'reference' => &$GLOBALS['TL_LANG']['tl_ausschreibung'],
 					'eval'      => array(
 							'includeBlankOption' => false,
@@ -165,10 +165,10 @@ $GLOBALS['TL_DCA']['tl_downloads'] = array
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
                         'search'                  => true,
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes'], 'mandatory'=>true),
-			'sql'                     => "varchar(255) NOT NULL default ''"
+			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validFileTypes'], 'mandatory'=>true),
+			//'sql'                     => "varchar(255) NOT NULL default ''"
 
-//			'sql'                     => "binary(16) NULL",
+			'sql'                     => "binary(16) NULL",
 		)
 	)
 );

@@ -24,7 +24,7 @@ class ModuleAusschreibungList extends Module
         
     	//die ganze Tabelle
     	$arrAus = array();
-    	$objAus = $this->Database->execute("SELECT * FROM tl_ausschreibung ORDER BY start_date ASC");
+    	$objAus = $this->Database->execute("SELECT * FROM tl_ausschreibung ORDER BY start_date ASC");//TODO ASC needs to change in to Descending
     	
     	while ($objAus->next()) {
     		$arrAus[] = array

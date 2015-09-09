@@ -1,6 +1,6 @@
 <?php
 
-class ModuleDownloadListing extends Module 
+class ModuleDownloadListing extends Module //TODO create different templats using the Type field to sort in to the correct FE template
 {
         protected $strTemplate = 'mod_download_listing';
         
@@ -8,6 +8,6 @@ class ModuleDownloadListing extends Module
             
                 $rs = DataBase::getInstance()
                 ->query('SELECT * FROM tl_downloads  ORDER BY sort_order ASC');
-                $this->Template->downloads = $rs->fetchAllAssoc();            
+                $this->Template->downloads = $rs->fetchAllAssoc();
         }
 }

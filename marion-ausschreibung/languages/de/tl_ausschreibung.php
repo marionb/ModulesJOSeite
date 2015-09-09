@@ -47,7 +47,7 @@ $GLOBALS['TL_LANG']['tl_ausschreibung']['material']=array('Ausr&uuml;stung','');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['anmeldung']=array('Anmeldung','WIE, WO und mit welchen Angaben sollen sich die Teinehmer anmelden');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['type']=array('Art der Tour','');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['teilnehmer']=array('Teilnehmerkreis','Bitte alle Zutreffenden ankreuzen');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['bilder']=array('Bild','Hier kann ein Bild für die Ausschreibung gew&auml;hlt werden')
+$GLOBALS['TL_LANG']['tl_ausschreibung']['bilder']=array('Bild','Hier kann ein Bild f&uuml;r die Ausschreibung gew&auml;hlt werden');
 //$GLOBALS['TL_LANG']['tl_ausschreibung'][]=array('','');
 
 

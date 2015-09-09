@@ -399,11 +399,8 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'label'                   => &$GLOBALS['TL_LANG']['tl_downloads']['bilder'],
        				'exclude'                 => true,
        				'inputType'               => 'fileTree',
-       				'search'                  => true,
-       				'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes'], 'mandatory'=>false),
-       				'sql'                     => "varchar(255) NOT NULL default ''"
-       		
-       				//			'sql'                     => "binary(16) NULL",
+       				'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']),
+       				'sql'                     => "binary(16) NULL"
        		)
        )
 );
