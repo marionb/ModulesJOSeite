@@ -1,4 +1,3 @@
-
 <div class="mod_ausschreibung <?php echo $this->class; ?>"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
   <?php if ($this->headline): ?>
 
@@ -8,9 +7,9 @@
   <h1 class="ce_headline">N&auml;chste Touren</h1>
   
   <?php foreach ($this->arrNextEvent as $Anlass): ?>
-        <h3><strong><?php echo $Anlass['title']; ?></strong></h3>
-        <p> Beginn datum:     <strong><?php echo $Anlass['start_date']; ?></strong></p>
-        <p> End datum:      <?php echo $Anlass['end_date']; ?></p>
+        <h3><?php echo $Anlass['titel']; ?></h3>
+        <p> Beginn datum: <?php echo $Anlass['start_date']; ?></p>
+        <p> End datum: <?php echo $Anlass['end_date']; ?></p>
         <p> <?php echo $Anlass['teaser']; ?></p>
         <hr>
         

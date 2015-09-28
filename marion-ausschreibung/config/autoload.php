@@ -14,7 +14,8 @@
  */
 ClassLoader::addClasses(array
 (
-	'Contao\ModuleAusschreibungList' => 'system/modules/marion-ausschreibung/ModuleAusschreibungList.php',
+	'Contao\ModuleAusschreibungList'     => 'system/modules/marion-ausschreibung/ModuleAusschreibungList.php',
+	'Contao\ModuleAusschreibungListFull' => 'system/modules/marion-ausschreibung/ModuleAusschreibungListFull.php',
 ));
 
 
