@@ -3,7 +3,7 @@
 namespace Contao;
  
 /**
- * Class ModuleAusschreibungList
+ * Class ModuleAusschreibungListFull
  *
  * Front end module "cd list".
  */
@@ -56,11 +56,11 @@ class ModuleAusschreibungListFull extends Module
     		(
     			'titel'				=> $objAus->titel,
                 'start_date'		=> $this->datumswandler(date('Y-m-d', (int)$objAus->start_date)),
-                'end_date'			=> $this->datumswandler(date('Y-m-d', (int)$objAus->end_date)),
+                'end_date'			=> $this->datumswandler_checkZero($objAus->end_date),
                 'anmelde_schluss'	=> $this->datumswandler(date('Y-m-d', (int)$objAus->anmelde_schluss)),
 				'ziel'				=> $objAus->ziel,
     			'schwierigkeit'		=> $objAus->schwierigkeit,
-    			'route'				=> $objAus->route, //this might be a bit strange and needs conversion
+    			'route'				=> $objAus->route,
     			'vorname_org'		=> $objAus->vorname_org,
     			'name_org'			=> $objAus->name_org,
     			'leiter_verantwortlich' => $objAus->leiter_verantwortlich,
@@ -112,6 +112,14 @@ class ModuleAusschreibungListFull extends Module
     	
     		$Datum = $WochentagDeutsch . ', ' . $Tag . '.' . $Monat . '.' . $Jahr; //Haengt die Variablen zum fertigen Datum zusammen
     		return $Datum;
+    	}
+    	public function datumswandler_checkZero($Datum)
+    	{
+    		if((int)$Datum == 0)
+    		{
+    			return false;
+    		}
+    		else {return $this->datumswandler(date('Y-m-d', (int)$Datum));}
     	}
             
 }

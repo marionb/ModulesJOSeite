@@ -1,4 +1,4 @@
-<div class="mod_ausschreibung <?php echo $this->class; ?>"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<div class="mod_ausschreibunglist <?php echo $this->class; ?>"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
   <?php if ($this->headline): ?>
 
   <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
@@ -8,8 +8,10 @@
   
   <?php foreach ($this->arrNextEvent as $Anlass): ?>
         <h3><?php echo $Anlass['titel']; ?></h3>
-        <p> Beginn datum: <?php echo $Anlass['start_date']; ?></p>
-        <p> End datum: <?php echo $Anlass['end_date']; ?></p>
+        <p> Von <?php echo $Anlass['start_date']; ?> 
+        <?php if($Anlass['end_date']) : ?>
+        bis <?php echo $Anlass['end_date']; ?></p>
+        <?php endif ; ?>
         <p> <?php echo $Anlass['teaser']; ?></p>
         <hr>
         

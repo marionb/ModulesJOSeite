@@ -60,7 +60,7 @@ class ModuleAusschreibungList extends Module
     		(
     			'titel' 		=> $objAus->titel,
                 'start_date' 	=> $this->datumswandler(date('Y-m-d', (int)$objAus->start_date)),
-                'end_date' 		=> $this->datumswandler(date('Y-m-d', (int)$objAus->end_date)),
+                'end_date' 		=> $this->datumswandler_checkZero($objAus->end_date),
                 'anmelde_schluss' => $objAus->anmelde_schluss,
 				'teaser' 		=> $objAus->teaser,
     		);
@@ -92,6 +92,15 @@ class ModuleAusschreibungList extends Module
     	
     		$Datum = $WochentagDeutsch . ', ' . $Tag . '.' . $Monat . '.' . $Jahr; //Haengt die Variablen zum fertigen Datum zusammen
     		return $Datum;
+    	}
+    	
+    	public function datumswandler_checkZero($Datum)
+    	{
+    		if((int)$Datum == 0)
+    		{
+    			return false;
+    		}
+    		else {return $this->datumswandler(date('Y-m-d', (int)$Datum));}
     	}
             
 }
