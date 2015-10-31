@@ -133,10 +133,11 @@
           	        <strong>Kosten</strong>
           	      </div>
           	      <div class="col-md-10">
+          	        Werden zu einem sp&auml;eren Zeitpukt bekannt gegeben.
           	        <!-- <?php if($Event['kosten']) : ?>
           	          <?php echo $Event['kosten']; ?>
           	        <?php else : ?>-->
-                      Werden zu einem sp&auml;eren Zeitpukt bekannt gegeben.
+                      
           	        <!-- <?php endif; ?>      -->  
           	      </div>
           	  </div> <!-- row -->
