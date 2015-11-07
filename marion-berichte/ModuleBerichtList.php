@@ -14,71 +14,65 @@ class ModuleBerichtList extends Module
      * Template
      * @var string
      */
-    protected $strTemplate = 'mod_berichtlist';
- 
- 
-    /**
-     * Display a wildcard in the back end
-     * @return string
-     */
-    public function generate()
-    {
-        if (TL_MODE == 'BE')
-        {
-            $objTemplate = new \BackendTemplate('be_wildcard');
- 
-            $objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['bericht_list'][0]) . ' ###';
-            $objTemplate->title = $this->headline;
-            $objTemplate->id = $this->id;
-            $objTemplate->link = $this->name;
-            $objTemplate->href = 'contao/main.php?do=themes&table=tl_module&act=edit&id=' . $this->id;
- 
-            return $objTemplate->parse();
-        }
- 
-        return parent::generate();
-    }
- 
- 
-    
-    
-    
-    
-    
-    /**
-     * Generate the module
-     */
+    protected $strTemplate = 'mod_berichtlist';   
+
     protected function compile()
     {
-        
+    
     	//die ganze Tabelle
-    	$arrAus = array();
-    	$objAus = $this->Database->execute("SELECT * FROM tl_bericht ORDER BY titel ASC");//TODO ORDER BY erfassungs datum
-    	
-    	while ($objAus->next()) {
-    	    //cover Image
-            $strCover = '';
-            $objCover = \FilesModel::findByPk($objCds->bild);
- 
-            // Add cover image
-            if ($objCover !== null)
-            {
-                $strCover = \Image::getHtml(\Image::get($objCover->path, '100', '100', 'center_center'));
-            }
-            
+    	 
+    	$objBer = $this->Database->execute("SELECT * FROM tl_bericht ORDER BY tstamp");//TODO ASC needs to change in to Descending
+    	 
+    	//Return if no Ausschreibungen were found
+    	if(!$objBer-numRows){ return;}
+    	 
+    	$arrBer = array();
+    	 
+    	while ($objBer->next()) {
+    		$image = null;
+    		$file = null;
+
+    		if($objBer->bilder != '')
+    		{
+    			$image = getFile();
+    		}
+    
     		$arrAus[] = array
     		(
-    		    'id'=> $objAus->id,
-    		    'title' => $objAus->titel,//todo check name
-                'cover' => $strCover,
-				'teaser' => $objAus->teaser,
-                'text' => $objAus->text,
-    			//'PDF'  => $srtPDF TODO
+    				'titel'				=> $objAus->titel,
+    				//'start_date'		=> $this->datumswandler(date('Y-m-d', (int)$objAus->start_date)),
+    				'image'				=> $image[0],
+    				'imgText'			=> $image[1]
+    
     		);
     	}
     	if (TL_MODE == 'FE') {
     		$this->Template->fmdId = $this->id;
-    		$this->Template->Berichte = $arrAus;
-    	}
-    }           
+    		$this->Template->Ausschreibung = $arrAus;
+    	} }
+    
+    protected function getFile($file)
+    {
+    	if($file === null){return null;}
+    	
+    	$objIMG = null;
+    	$objIMGText = null;
+    	
+    	$objModel = \FilesModel::findByUuid($file);
+    
+	    if($objModel === null) //Identical: $objAus is identical to Null even if the type of null is not the same as $objAus
+	    {
+	    	if(!\Validator::isUuid($file))
+	    	{
+	    		$objIMGText = '<p class="error">'.$GLOBALS['TL_LANG']['ERR']['version2format'].'</p>';
+	    	}
+	    }
+	    elseif (is_file(TL_ROOT . '/' . $objModel->path))
+	    {
+	    
+	    	$objIMG = $objModel->path;
+	    }
+	    return [$objIMG, $objIMGText];
+    }
+    
 }
