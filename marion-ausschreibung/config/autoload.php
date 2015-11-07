@@ -14,7 +14,8 @@
  */
 ClassLoader::addClasses(array
 (
-	'Contao\ModuleAusschreibungList' => 'system/modules/marion-ausschreibung/ModuleAusschreibungList.php',
+	'Contao\ModuleAusschreibungList'     => 'system/modules/marion-ausschreibung/ModuleAusschreibungList.php',
+	'Contao\ModuleAusschreibungListFull' => 'system/modules/marion-ausschreibung/ModuleAusschreibungListFull.php',
 ));
 
 
@@ -23,5 +24,6 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'mod_ausschreibunglist' => 'system/modules/marion-ausschreibung/templates',
+	'mod_ausschreibunglist'     => 'system/modules/marion-ausschreibung/templates',
+	'mod_ausschreibunglistfull' => 'system/modules/marion-ausschreibung/templates',
 ));

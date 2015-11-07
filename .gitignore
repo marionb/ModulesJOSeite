@@ -56,3 +56,12 @@ calendar/*
 
 .metadata/*
 repository/*
+downloads/.buildpath
+downloads/.project
+downloads/.settings/org.eclipse.php.core.prefs
+marion-ausschreibung/.buildpath
+marion-ausschreibung/.buildpath
+marion-ausschreibung/.settings/org.eclipse.php.core.prefs
+marion-ausschreibung/.settings/org.eclipse.php.core.prefs
+marion-ausschreibung/.buildpath
+downloads/.settings/org.eclipse.wst.common.project.facet.core.xml

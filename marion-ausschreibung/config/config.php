@@ -13,5 +13,6 @@ $GLOBALS['BE_MOD']['content']['ausschreibung'] = array(
 */
 array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0, array
 		(
-				'AusschreibungList' => 'ModuleAusschreibungList'
+				'AusschreibungList' => 'ModuleAusschreibungList',
+				'AusschreibungListFull' => 'ModuleAusschreibungListFull'
 		));

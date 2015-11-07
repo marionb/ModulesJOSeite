@@ -120,14 +120,14 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        ),
 
 
-       // Palettes
-       'palettes' => array(
+             // Palettes
+        'palettes' => array(
               '__selector__' => array(),
-              'default' => '{Titel}, titel; {Zeit}, start_date, anmelde_schluss, end_date; {Beschreibung},teaser, text',//TODO
+              'default' => '{Titel}, titel; {Zeit}, start_date, end_date, anmelde_schluss; {Tourenbeschrieb}, teaser, ziel, schwierigkeit, route, teilnehmer, type; {Angaben zum Organisator (Diese Person ist zustaendig fuer die Administration)}, vorname_org, name_org; {Leitung und Verantwortliche}, leiter_verantwortlich, leiter; {Detailangaben falls bereits bekannt}, text, treffpkt, rueckkehr, verpflegung, anforderung, kosten, material, anmeldung; {Bilder hoch laden}, bilder',//TODO
        ),
 
 
-       // Fields
+      // Fields
        'fields' => array(
 				'id' => array(
 					'sql'           => "int(10) unsigned NOT NULL auto_increment"
@@ -191,20 +191,217 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
 					'search'                  => true,
 					'inputType'               => 'text',
 					'eval'                    => array(
-							'maxlength'		  =>200, 
+							'maxlength'		  => 400, //TODO check if this number is OK
 							'tl_class'		  =>'long',
 							'mandatory'		  =>true
 							),
-					'sql'                     => "varchar(200) NOT NULL default ''"
+					'sql'                     => "varchar(400) NOT NULL default ''"
 				),
-				'text' => array(
-					'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['text'],
+				'type'  => array
+				(
+					'label'     => &$GLOBALS['TL_LANG']['tl_ausschreibung']['type'],
+					'inputType' => 'select',
+					'exclude'   => true,
+					'sorting'   => true,
+					//'flag'      => 1,
+					'options'   => array('Skitour', 'Hochtour', 'Skihochtour', 'Klettern', 'Alpinklettern', 'Wandern', 'Plausch'),
+					//'reference' => &$GLOBALS['TL_LANG']['tl_ausschreibung'],
+					'eval'      => array(
+						'includeBlankOption' => true,
+						//'submitOnChange'     => true,
+						'mandatory'          => true,
+						'tl_class'           => 'w50'
+					),
+					'sql'       => "varchar(10) NOT NULL default ''"
+				),
+       		    'ziel' => array(
+       		    		'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['ziel'],
+       		    		'exclude'                 => true,
+       		    		'search'                  => true,
+       		    		'inputType'               => 'text',
+       		    		'eval'                    => array(
+       		    				'maxlength'		  => 100,
+       		    				'tl_class'		  =>'long',
+       		    				'mandatory'		  => true
+       		    		),
+       		    		'sql'                     => "varchar(100) NOT NULL default ''"
+       		    ),
+       		'schwierigkeit' => array(
+       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['schwierigkeit'],
+       				'exclude'                 => true,
+       				'search'                  => true,
+       				'inputType'               => 'text',
+       				'eval'                    => array(
+       						'maxlength'		  => 100,
+       						'tl_class'		  =>'long',
+       						'mandatory'		  => true
+       				),
+       				'sql'                     => "varchar(100) NOT NULL default ''"
+       		),
+       		'route' => array(
+       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['route'],
+       				'exclude'                 => true,
+       				'search'                  => true,
+       				'inputType'               => 'text',
+       				'eval'                    => array(
+       						'maxlength'		  => 500,
+       						'tl_class'		  =>'long',
+       						'mandatory'		  =>true
+       				),
+       				'sql'                     => "varchar(500) NOT NULL default ''"
+       		),
+       		'teilnehmer'  => array
+       		(
+       				'label'     => &$GLOBALS['TL_LANG']['tl_ausschreibung']['teilnehmer'],
+       				'inputType' => 'checkbox',
+       				'exclude'   => true,
+       				'sorting'   => true,
+       				//'flag'      => 1,
+       				'options'   => array('JO', 'KiBe', 'FaBe', 'J+S Kids'),
+       				//'reference' => &$GLOBALS['TL_LANG']['tl_ausschreibung'],
+       				'eval'      => array(
+       						'includeBlankOption' => false,
+       						//'submitOnChange'     => true,
+       						'mandatory'          => true,
+       						'multiple'			 => true,
+       						'size'				 => 4,
+       						'fieldType' 		 => 'checkbox',
+       						'tl_class'           => 'w50'
+       				),
+       				'sql'       => "blob NULL" //"varchar(30) NOT NULL default ''"
+       		),
+       		'name_org' => array(
+       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['name_org'],
+       				'exclude'                 => true,
+       				'search'                  => true,
+       				'inputType'               => 'text',
+       				'eval'                    => array(
+       						'maxlength'		  => 50,
+       						'tl_class'		  =>'long',
+       						'mandatory'		  =>true
+       				),
+       				'sql'                     => "varchar(50) NOT NULL default ''"
+       		),
+       		'vorname_org' => array(
+       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['vorname_org'],
+       				'exclude'                 => true,
+       				'search'                  => true,
+       				'inputType'               => 'text',
+       				'eval'                    => array(
+       						'maxlength'		  => 50,
+       						'tl_class'		  =>'long',
+       						'mandatory'		  =>true
+       				),
+       				'sql'                     => "varchar(50) NOT NULL default ''"
+       		),
+       		'leiter_verantwortlich' => array(
+       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['leiter_verantwortlich'],
+       				'exclude'                 => true,
+       				'search'                  => true,
+       				'inputType'               => 'text',
+       				'eval'                    => array(
+       						'maxlength'		  => 50,
+       						'tl_class'		  =>'long',
+       						'mandatory'		  => true
+       				),
+       				'sql'                     => "varchar(50) NOT NULL default ''"
+       		),
+       		'leiter' => array(
+       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['leiter'],
+       				'exclude'                 => true,
+       				'search'                  => false,
+       				'inputType'               => 'textarea',
+       				'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
+       				'sql'                     => "text NULL"
+       		),
+       		'text' => array(
+       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['text'],
+       				'exclude'                 => true,
+       				'search'                  => false,
+       				'inputType'               => 'textarea',
+       				'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
+       				'sql'                     => "text NULL"
+       		),
+       		'treffpkt' => array(
+       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['treffpkt'],
+       				'exclude'                 => true,
+       				'search'                  => true,
+       				'inputType'               => 'text',
+       				'eval'                    => array(
+       						'maxlength'		  => 100,
+       						'tl_class'		  =>'long',
+       						'mandatory'		  => false
+       				),
+       				'sql'                     => "varchar(100) NOT NULL default ''"
+       		),
+       		'rueckkehr' => array(
+       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['rueckkehr'],
+       				'exclude'                 => true,
+       				'search'                  => true,
+       				'inputType'               => 'text',
+       				'eval'                    => array(
+       						'maxlength'		  => 100,
+       						'tl_class'		  =>'long',
+       						'mandatory'		  => false
+       				),
+       				'sql'                     => "varchar(100) NOT NULL default ''"
+       		),
+       		'verpflegung' => array(
+       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['verpflegung'],
+       				'exclude'                 => true,
+       				'search'                  => true,
+       				'inputType'               => 'text',
+       				'eval'                    => array(
+       						'maxlength'		  => 500,
+       						'tl_class'		  =>'long',
+       						'mandatory'		  => false
+       				),
+       				'sql'                     => "varchar(500) NOT NULL default ''"
+       		),
+       		'anforderung' => array(
+       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['anforderung'],
+       				'exclude'                 => true,
+       				'search'                  => true,
+       				'inputType'               => 'text',
+       				'eval'                    => array(
+       						'maxlength'		  => 200,
+       						'tl_class'		  =>'long',
+       						'mandatory'		  => false
+       				),
+       				'sql'                     => "varchar(200) NOT NULL default ''"
+       		),
+       		'kosten' => array(
+       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['kosten'],
+       				'exclude'                 => true,
+       				'search'                  => false,
+       				'inputType'               => 'textarea',
+       				'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
+       				'sql'                     => "text NULL"
+       		),
+       		'material' => array(
+       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['material'],
+       				'exclude'                 => true,
+       				'search'                  => false,
+       				'inputType'               => 'textarea',
+       				'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
+       				'sql'                     => "text NULL"
+       		),
+			'anmeldung' => array(
+					'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['anmeldung'],
 					'exclude'                 => true,
-					'search'                  => false,
-					'inputType'               => 'textarea',
-					'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
-					'sql'                     => "text NULL"
-				),
+       				'search'                  => false,
+       				'inputType'               => 'textarea',
+       				'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
+       				'sql'                     => "text NULL"
+       		),
+       		'bilder' => array
+       		(
+       				'label'                   => &$GLOBALS['TL_LANG']['tl_downloads']['bilder'],
+       				'exclude'                 => true,
+       				'inputType'               => 'fileTree',
+       				'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']),
+       				'sql'                     => "binary(16) NULL"
+       		)
        )
 );
 

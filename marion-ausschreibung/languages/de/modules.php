@@ -32,6 +32,6 @@ $GLOBALS['TL_LANG']['MOD']['ausschreibung'] = array('Ausschreibung', 'Eine Aussc
  * Front end modules
  */
 $GLOBALS['TL_LANG']['FMD']['ausschreibung_liste'] = array('Ausschreibung', 'Eine Ausschreibung im Frontend darstellen.');
-//$GLOBALS['TL_LANG']['FMD']['jahresprogramm_next_event'] = array('Jahresprogramm N&auml;chster Event', 'N&auml;chster Event.');
+$GLOBALS['TL_LANG']['FMD']['ausschreibung_liste_full'] = array('Alle Ausschreibungen auflisten', 'Alle Ausschreibungen in einer Liste Darstellen');
 
 ?>

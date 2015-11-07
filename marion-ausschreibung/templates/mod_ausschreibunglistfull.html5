@@ -1,0 +1,184 @@
+<div class="mod_ausschreibunglistfull <?php echo $this->class; ?>"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+   <?php if ($this->headline): ?>
+
+  <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+  <?php endif; ?>
+
+  <h1 class="ce_headline">Jahresprogramm 2016</h1>
+  
+  <?php foreach ($this->Ausschreibung as $Event): ?>
+  <div>
+    <h3><?php echo $Event['titel']; ?></h3>
+    </h4><?php echo $Event['start_date']; ?> <?php if($Event['end_date']) : ?> bis <?php echo $Event['end_date']; ?> <?php endif ; ?></h4>
+    <br/>
+    <p><?php echo $Event['teaser']; ?></p>
+    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-<?php echo $Event[id];?>">Detailierte Ausschreibung</button>
+
+    <hr>
+    
+    <div class="modal fade" id="modal-<?php echo $Event[id];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title text-center" id="myLargeModalLabel">
+              <?php echo $Event['titel']; ?>
+		      <br/>
+			  <?php echo $Event['start_date']; ?> <?php if($Event['end_date']) : ?> bis <?php echo $Event['end_date']; ?> <?php endif ; ?>
+			</h3>
+          </div>
+          <div class="modal-body">
+          	<!--<div class="container">-->
+          	  <div class="row">
+          	    <?php if($Event['bilder']) : ?>
+          	      <div class="col-md-7">
+          	        <?php echo $Event['teaser']; ?>
+          	        <br/>
+          	        <?php echo $Event['text']; ?>
+          	        <br/>
+          	      </div>
+          	      <!------------------------------------------------------------>
+ 				  <div class="col-md-5">
+          	        <img src="<?php echo $Event['bilder']; ?>" alt="<?php echo $Event['imgText']; ?>" class="img-rounded img-responsive"/>
+     	          </div>
+          	    <?php else : ?>
+          	      <div class="col-md-12">
+          	        <?php echo $Event['teaser']; ?>
+          	        <br/>
+          	        <?php echo $Event['text']; ?>
+          	        <br/>
+          	      </div>
+          	    <?php endif; ?>
+          	  </div> <!-- row -->
+          	    
+          	  <br/>
+          	  <!------------------------------------------------------------>
+          	  <div class="row">
+          	    <div class="col-md-2">
+          	      <strong>Wohin</strong>
+          	    </div>
+          	    <div class="col-md-10">
+          	      <?php echo $Event['ziel']; ?>
+          	    </div>
+          	  </div> <!-- row -->
+          	  <!------------------------------------------------------------>
+          	  <div class="row">
+          	    <div class="col-md-2">
+          	      <strong>Organisator</strong>
+          	    </div>
+          	    <div class="col-md-10">
+          	      <?php echo $Event['vorname_org']; ?> <?php echo $Event['name_org']; ?>
+          	    </div>
+          	  </div> <!-- row -->
+          	  <!------------------------------------------------------------>
+          	  <div class="row">
+          	    <div class="col-md-2">
+          	      <strong>Leitung</strong>
+          	    </div>
+          	    <div class="col-md-10">
+          	      <?php echo $Event['leiter_verantwortlich']; ?>
+          	      <br/>
+          	      <?php if($Event['leiter']) : ?>
+          	        <?php echo $Event['leiter']; ?>
+          	      <?php endif; ?>
+          	    </div>
+          	  </div> <!-- row -->
+          	  <!------------------------------------------------------------>
+          	  <div class="row">
+          	    <?php if($Event['treffpkt']) : ?>
+          	      <div class="col-md-2">
+          	        <strong>Treffpunkt</strong>
+          	      </div>
+          	      <div class="col-md-10">
+          	        <?php echo $Event['treffpkt']; ?>
+          	      </div>
+          	    <?php endif; ?>
+          	  </div> <!-- row -->
+          	  <!------------------------------------------------------------>
+          	  <div class="row">
+          	    <?php if($Event['rueckkehr']) : ?>
+          	      <div class="col-md-2">
+          	        <strong>R&uuml;kkehr</strong>
+          	      </div>
+          	      <div class="col-md-10">
+          	        <?php echo $Event['rueckkehr']; ?>
+          	      </div>
+          	    <?php endif; ?>
+          	  </div> <!-- row -->
+          	  <!------------------------------------------------------------>
+          	  <div class="row">
+          	    <?php if($Event['material']) : ?>
+          	      <div class="col-md-2">
+          	        <strong>Ausr&uuml;stung</strong>
+          	      </div>
+          	      <div class="col-md-10">
+          	        <?php echo $Event['material']; ?>
+          	      </div>
+          	    <?php endif; ?>
+          	  </div> <!-- row -->
+          	  <!------------------------------------------------------------>
+          	  <div class="row">
+          	    <?php if($Event['verpflegung']) : ?>
+          	      <div class="col-md-2">
+          	        <strong>Verpflegung</strong>
+          	      </div>
+          	      <div class="col-md-10">
+          	        <?php echo $Event['verpflegung']; ?>
+          	      </div>
+          	    <?php endif; ?>
+          	  </div> <!-- row -->
+          	  <!------------------------------------------------------------>
+          	  <div class="row">
+          	      <div class="col-md-2">
+          	        <strong>Kosten</strong>
+          	      </div>
+          	      <div class="col-md-10">
+          	        Werden zu einem sp&auml;eren Zeitpukt bekannt gegeben.
+          	        <!-- <?php if($Event['kosten']) : ?>
+          	          <?php echo $Event['kosten']; ?>
+          	        <?php else : ?>-->
+                      
+          	        <!-- <?php endif; ?>      -->  
+          	      </div>
+          	  </div> <!-- row -->
+          	  <!------------------------------------------------------------>
+          	  <div class="row">
+          	    <?php if($Event['anforderung']) : ?>
+          	      <div class="col-md-2">
+          	        <strong>Anforderung</strong>
+          	      </div>
+          	      <div class="col-md-10">
+          	        <?php echo $Event['anforderung']; ?>
+          	      </div>
+          	    <?php endif; ?>
+          	  </div> <!-- row -->
+          	  <!------------------------------------------------------------>
+          	  <div class="row">
+          	    <?php if($Event['anmeldung']) : ?>
+          	      <div class="col-md-2">
+          	        <strong>Anmeldung</strong>
+          	      </div>
+          	      <div class="col-md-10">
+          	        <?php echo $Event['anmeldung']; ?>
+          	      </div>
+          	    <?php endif; ?>
+          	  </div> <!-- row -->
+          	  <!------------------------------------------------------------>
+          	<!--</div>  container -->
+          	<br/>
+          	<div class="alert alert-warning text-center">
+			  Versicherung ist Sache der Teilnehmenden!
+          	 </div>
+          	 <!------------------------------------------------------------>
+
+                   
+          </div> <!-- modal-body -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>      
+  </div>
+  <?php endforeach; ?>
+</div>

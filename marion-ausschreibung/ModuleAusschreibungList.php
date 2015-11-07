@@ -31,6 +31,7 @@ class ModuleAusschreibungList extends Module
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
             $objTemplate->link = $this->name;
+            $objTemplate->date = $this->date;
             $objTemplate->href = 'contao/main.php?do=themes&table=tl_module&act=edit&id=' . $this->id;
  
             return $objTemplate->parse();
@@ -51,55 +52,22 @@ class ModuleAusschreibungList extends Module
     protected function compile()
     {
         
-    	//die ganze Tabelle
-    	$arrAus = array();
-    	$objAus = $this->Database->execute("SELECT * FROM tl_ausschreibung ORDER BY start_date ASC");
-    	
-    	while ($objAus->next()) {
-    		$arrAus[] = array
-    		(
-    			'title' => $objAus->title,
-                'start_date' => $objAus->start_date,
-                'end_date' => $objAus->end_date,
-                'anmelde_schluss' => $objAus->anmelde_schluss,
-                //'cover' => $strCover,
-				'teaser' => $objAus->teaser,
-                'text' => $objAus->text
-    		);
-    	}
-    	if (TL_MODE == 'FE') {
-    		$this->Template->fmdId = $this->id;
-    		$this->Template->Ausschreibung = $arrAus;
-    	}
     	$arrNextEvent = array();
-    	$objAus = $this->Database->prepare("SELECT * FROM tl_ausschreibung WHERE start_date>?")->limit(3)->execute(time());
+    	$objAus = $this->Database->prepare("SELECT * FROM tl_ausschreibung ORDER BY start_date")->limit(5)->execute(time());
     	
     	while ($objAus->next()) {
     		$arrNextEvent[] = array
     		(
-    			'title' => $objAus->titel,
-                'start_date' => date('Y-m-d', (int)$objAus->start_date),
-                'end_date' => $this->datumswandler(date('Y-m-d', (int)$objAus->end_date)),
+    			'titel' 		=> $objAus->titel,
+                'start_date' 	=> $this->datumswandler(date('Y-m-d', (int)$objAus->start_date)),
+                'end_date' 		=> $this->datumswandler_checkZero($objAus->end_date),
                 'anmelde_schluss' => $objAus->anmelde_schluss,
-                //'cover' => $strCover,
-				'teaser' => $objAus->teaser,
-                'text' => $objAus->text
+				'teaser' 		=> $objAus->teaser,
     		);
     	}
     	$this->Template->arrNextEvent = $arrNextEvent;
     	}
     	
-    	
- 
-            //coover Image
-            /*$strCover = '';
-            $objCover = \FilesModel::findByPk($objCds->cover);
- 
-            // Add cover image
-            if ($objCover !== null)
-            {
-                $strCover = \Image::getHtml(\Image::get($objCover->path, '100', '100', 'center_center'));
-            }*/
     	public function datumswandler($Datum)
     	{
     	
@@ -124,6 +92,15 @@ class ModuleAusschreibungList extends Module
     	
     		$Datum = $WochentagDeutsch . ', ' . $Tag . '.' . $Monat . '.' . $Jahr; //Haengt die Variablen zum fertigen Datum zusammen
     		return $Datum;
+    	}
+    	
+    	public function datumswandler_checkZero($Datum)
+    	{
+    		if((int)$Datum == 0)
+    		{
+    			return false;
+    		}
+    		else {return $this->datumswandler(date('Y-m-d', (int)$Datum));}
     	}
             
 }
