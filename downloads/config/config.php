@@ -10,7 +10,4 @@ $GLOBALS['FE_MOD']['downloads'] = array
 (
 	'download_listing'     => 'ModuleDownloadListing'
 );
-
-$GLOBALS['TL_HOOKS']['simpleAjax'][] = array('AjaxClassToCount', 'countDownloads'); // Klassenname - Methodenname
-
 ?>
