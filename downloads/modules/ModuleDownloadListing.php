@@ -1,17 +1,4 @@
 <?php
-
-/*class ModuleDownloadListing extends Module //TODO create different templats using the Type field to sort in to the correct FE template
-{
-        protected $strTemplate = 'mod_download_listing';
-        
-        protected function compile() {
-            
-                $rs = DataBase::getInstance()
-                ->query('SELECT * FROM tl_downloads  ORDER BY sort_order ASC');
-                $this->Template->downloads = $rs->fetchAllAssoc();
-        }
-}*/
-
 namespace Contao;
 
 /**
@@ -67,10 +54,11 @@ class ModuleDownloadListing extends Module
 			
 			$arrNextDownloas[] = array
 			(
-				'titel' 		=> $objAus->titel,
+				'titel' 		=> $objAus->title,
     			'type'			=> $objAus->type,
     			'description'	=> $objAus->description,
-				'href'			=> $objHref
+				'href'			=> $objHref,
+				'tstamp'		=> $this->datumswandler(date('Y-m-d', (int)$objAus->tstamp)),
 			);
 		}
 		if (TL_MODE == 'FE') {
@@ -78,5 +66,32 @@ class ModuleDownloadListing extends Module
 			$this->Template->Ausschreibung = $arrAus;
 		}
 		$this->Template->arrNextDownloads = $arrNextDownloas;
+	}
+	
+	
+	public function datumswandler($Datum)
+	{
+		 
+		$Tag = substr($Datum, 8, 2); //Nimmt die 2 Zeichen rechts des 8. Zeichens(=Zeichen 9 und 10)
+		$Monat = substr($Datum, 5, 2); //Nimmt die 2 Zeichen rechts des 5. Zeichens(=Zeichen 6 und 7)
+		$Jahr = substr($Datum, 0, 4); //Gibt die 4-stellige Jahreszahl z.B 2007)
+		 
+		$WochentagEnglisch = date("l", mktime(0, 0, 0, $Monat, $Tag, $Jahr));
+		 
+		$WochentagArray = array(
+				'Monday' => "Mo",
+				'Tuesday' => "Di",
+				'Wednesday' => "Mi",
+				'Thursday' => "Do",
+				'Friday' => "Fr",
+				'Saturday' => "Sa",
+				'Sunday' => "So"
+		);
+		$WochentagDeutsch = $WochentagArray[$WochentagEnglisch];
+		 
+		$Jahr = substr($Datum, 2, 2); //Gibt die 2-stellige Jahreszahl z.B. "07")
+		 
+		$Datum = $WochentagDeutsch . ', ' . $Tag . '.' . $Monat . '.' . $Jahr; //Haengt die Variablen zum fertigen Datum zusammen
+		return $Datum;
 	}
 }
