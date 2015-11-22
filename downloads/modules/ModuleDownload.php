@@ -79,16 +79,16 @@ class ModuleDownload
 	}
 }
 /**
- * Class ModuleDownloadListing
+ * Class ModuleFoehnAlle
  */
-class ModuleDownloadListing extends Module
+class ModuleFoehnAlle extends Module
 {
 
 	/**
 	 * Template
 	 * @var string
 	 */
-	protected $strTemplate = 'mod_download_listing';
+	protected $strTemplate = 'mod_download_foehn_alle';
 
 
 	/**

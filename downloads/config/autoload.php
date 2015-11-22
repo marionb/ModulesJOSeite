@@ -15,8 +15,8 @@
 ClassLoader::addClasses(array
 (
 	// Modules
-	'AjaxClassToCount'             => 'system/modules/downloads/modules/AjaxClassToCount.php',
-	'Contao\ModuleDownloadListing' => 'system/modules/downloads/modules/ModuleDownloadListing.php',
+	'AjaxClassToCount'       => 'system/modules/downloads/modules/AjaxClassToCount.php',
+	'Contao\ModuleFoehnAlle' => 'system/modules/downloads/modules/ModuleFoehnAlle.php',
 ));
 
 
@@ -25,5 +25,7 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'mod_download_listing' => 'system/modules/downloads/templates',
+	'mod_download_downloads'  => 'system/modules/downloads/templates',
+	'mod_download_foehn_alle' => 'system/modules/downloads/templates',
+	'mod_download_listing'    => 'system/modules/downloads/templates',
 ));
