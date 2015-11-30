@@ -4,7 +4,7 @@ namespace Contao;
 
 
 
-class ModuleDownload
+class ModuleDownload_Get
 {
 	/*
 	  Takes a timestamp value and returens a string value of the following fromat: Week-Day,s DD. MM. YY
@@ -81,14 +81,14 @@ class ModuleDownload
 /**
  * Class ModuleFoehnAlle
  */
-class ModuleFoehnAlle extends Module
+class ModuleDownload extends Module
 {
 
 	/**
 	 * Template
 	 * @var string
 	 */
-	protected $strTemplate = 'mod_download_foehn_alle';
+	protected $strTemplate = 'mod_download_listing';
 
 
 	/**
@@ -105,7 +105,7 @@ class ModuleFoehnAlle extends Module
 	 */
 	protected function compile()
 	{
-		$arrNextDownloas = ModuleDownload::get_downloads($this->Database);
+		$arrNextDownloas = ModuleDownload_Get::get_downloads($this->Database);
 		
 		if (TL_MODE == 'FE') {
 			$this->Template->fmdId = $this->id;

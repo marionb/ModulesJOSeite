@@ -1,9 +1,6 @@
 <?php
 namespace Contao;
 
-
-
-
 class ModuleDownload
 {
 	/*
@@ -43,7 +40,7 @@ class ModuleDownload
 	public static function get_downloads($dataBase)
 	{
 		$arrNextDownloas = array();
-		$objAus = $dataBase->execute("SELECT * FROM  tl_downloads ORDER BY tstamp");
+		$objAus = $dataBase->execute("SELECT * FROM  tl_downloads WHERE (type = 'Foehn') ORDER BY tstamp DESC");
 		while ($objAus->next()) {
 			$var1;
 			$objHref = null;

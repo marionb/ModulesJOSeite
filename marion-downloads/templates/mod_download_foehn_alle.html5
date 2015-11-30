@@ -1,4 +1,4 @@
-<div class="mod_foehn_alle <?php echo $this->class; ?>"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<div class="mod_download_foehn_alle <?php echo $this->class; ?>"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
 
   <h1 class="ce_headline">F&ouml;hn</h1>
   <?php foreach ($this->arrNextDownloads as $Download): ?>
@@ -16,7 +16,7 @@
         <p><?php echo $Download['description']; ?></p>
         <p> <a role="button" class="btn btn-warning" href="<?php echo $Download['href']; ?>">Weiter Lesen</a></p>
       </div>
-      <hr>
     <?php endif; ?>
   <?php endforeach; ?>
+  <hr>
 </div>

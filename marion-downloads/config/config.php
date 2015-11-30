@@ -8,6 +8,7 @@ $GLOBALS['BE_MOD']['content']['downloads'] = array(
 
 $GLOBALS['FE_MOD']['downloads'] = array
 (
-	'download_foehn_alle'     => 'ModuleFoehnAlle'
+	'download_foehn_alle'     => 'ModuleFoehnAlle',
+	'download_foehn_newest'	  => 'ModuleFoehnNewest'
 );
 ?>
