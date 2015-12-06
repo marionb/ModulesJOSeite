@@ -15,7 +15,7 @@ class ModuleAusschreibungListFull extends Module
      * @var string
      */
     protected $strTemplate = 'mod_ausschreibunglistfull';
-
+    
     /**
      * Generate the module
      */
@@ -79,8 +79,8 @@ class ModuleAusschreibungListFull extends Module
     			'anmeldung' 		=> $objAus->anmeldung,
     			'bilder'			=> $objIMG,
     			'imgText'			=> $objIMGText,
-    			'id'				=> $objAus->id
-    				
+    			'id'				=> $objAus->id,
+    			'teilnehmer'		=> $this->get_RadiobuttonRes($objAus->teilnehmer)
     		);
     	}
     	if (TL_MODE == 'FE') {
@@ -88,7 +88,7 @@ class ModuleAusschreibungListFull extends Module
     		$this->Template->Ausschreibung = $arrAus;
     	} }  	
     	
-    	public function datumswandler($Datum)
+    	protected function datumswandler($Datum)
     	{
     	
     		$Tag = substr($Datum, 8, 2); //Nimmt die 2 Zeichen rechts des 8. Zeichens(=Zeichen 9 und 10)
@@ -113,13 +113,43 @@ class ModuleAusschreibungListFull extends Module
     		$Datum = $WochentagDeutsch . ', ' . $Tag . '.' . $Monat . '.' . $Jahr; //Haengt die Variablen zum fertigen Datum zusammen
     		return $Datum;
     	}
-    	public function datumswandler_checkZero($Datum)
+    	
+    	protected function datumswandler_checkZero($Datum)
     	{
     		if((int)$Datum == 0)
     		{
     			return false;
     		}
     		else {return $this->datumswandler(date('Y-m-d', (int)$Datum));}
+    	}
+    	
+    	/**
+    	 * Resolve teilnehmer field
+    	 */
+    	protected function get_RadiobuttonRes($value)
+    	{
+    		$result = [];
+    		if(is_null($value))
+    		{
+    			return NULL;
+    		}    		
+    		if (preg_match('/\bJO\b/',$value))
+    		{
+    			array_push($result, "JO");
+    		}
+    		if (preg_match("/\bKiBe\b/", $value))
+    		{
+    			array_push($result, "KiBe");
+    		}
+    		if (preg_match('/\bFaBe\b/', $value))
+    		{
+    			array_push($result, "FaBe");
+    		}
+    		if (preg_match('/\bKids\b/', $value))
+    		{
+    			array_push($result, "J+S Kids");
+    		}
+    		return $result;
     	}
             
 }
