@@ -18,10 +18,10 @@ class ModuleTile extends Module
   	
   	$arrayhref [] = array 
   	(
-  			'fohn'		=> '#',
-  			'jprogram' 	=> '#',
-  			'bericht'	=> '#',
-  			'kontakt'	=> '#',
+  			'fohn'		=> 'index.php/foehn.html',
+  			'touren' 	=> 'index.php/ausschreibungen.html',
+  			'bericht'	=> 'index.php/berichte.html',
+  			'portrait'	=> 'index.php/PortraitKontakt.html',
   	);
     $this->Template->href = $arrayhref;
   }

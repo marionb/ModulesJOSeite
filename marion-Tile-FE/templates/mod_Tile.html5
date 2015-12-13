@@ -2,7 +2,6 @@
   <?php echo $this->cssID; ?>
   <?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
  
-  <?php echo $this->hallo; ?>
   <div class="col-md-6">
 	<div class="well">
         <a class="fa-links" href="<?php echo $href['fohn']?>">
@@ -12,8 +11,8 @@
   </div>
     <div class="col-md-6">
 	<div class="well">
-        <a class="fa-links" href="<?php echo $href['jprogram']?>">
-            <h1>Jahresprogramm</h1>
+        <a class="fa-links" href="<?php echo $href['touren']?>">
+            <h1>Touren</h1>
 		</a>
     </div>
   </div>
@@ -26,7 +25,7 @@
   </div>
     <div class="col-md-6">
 	<div class="well">
-	<a class="fa-links" href="<?php echo $href['kontakt']?>">
+	<a class="fa-links" href="<?php echo $href['portrait']?>">
 	  <h1>Kontakt</h1>
 	</a>
     </div>

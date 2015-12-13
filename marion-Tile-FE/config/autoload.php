@@ -15,6 +15,7 @@
 ClassLoader::addClasses(array
 (
 	'ModuleTile' => 'system/modules/marion-Tile-FE/ModuleTile.php',
+	'ModuleBELogin' => 'system/modules/marion-Tile-FE/BELogin.php',
 ));
 
 
@@ -23,5 +24,6 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'mod_Tile' => 'system/modules/marion-Tile-FE/templates',
+	'mod_Tile'			=> 'system/modules/marion-Tile-FE/templates',
+	'mod_Backend_Login'	=> 'system/modules/marion-Tile-FE/templates',
 ));

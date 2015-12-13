@@ -53,7 +53,7 @@ class ModuleAusschreibungList extends Module
     {
         
     	$arrNextEvent = array();
-    	$objAus = $this->Database->prepare("SELECT * FROM tl_ausschreibung ORDER BY start_date")->limit(5)->execute(time());
+    	$objAus = $this->Database->prepare("SELECT * FROM tl_ausschreibung ORDER BY start_date")->limit(3)->execute(time());
     	
     	while ($objAus->next()) {
     		$arrNextEvent[] = array
