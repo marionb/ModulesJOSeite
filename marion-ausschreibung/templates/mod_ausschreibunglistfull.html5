@@ -7,13 +7,43 @@
   <h1 class="ce_headline">Jahresprogramm 2016</h1>
   
   <?php foreach ($this->Ausschreibung as $Event): ?>
+  <?php $tn = $Event['teilnehmer']; ?>
+  <?php $tnRows = 12/count($tn) ; ?>
   <div>
-    <h3><?php echo $Event['titel']; ?></h3>
-    </h4><?php echo $Event['start_date']; ?> <?php if($Event['end_date']) : ?> bis <?php echo $Event['end_date']; ?> <?php endif ; ?></h4>
+    <h3><?php echo $Event['titel']; ?> <small><?php echo $Event['start_date']; ?> <?php if($Event['end_date']) : ?> bis <?php echo $Event['end_date']; ?> <?php endif ; ?></small></h3>
+            <div class="row">
+              <div class="col-md-1">
+                <?php if(in_array("JO", $tn)): ?>
+	             <a class="disabled btn btn-md btn-success" href="javascript:void(0)"> 
+			        JO
+			      </a>
+	            <?php endif ; ?>
+              </div>
+              <div class="col-md-1">
+			    <?php if(in_array("FaBe", $tn)): ?>
+			      <a class="disabled btn btn-md btn-warning" href="javascript:void(0)"> 
+			        FaBe
+			      </a>
+			     <?php endif ; ?>
+			   </div>
+			   <div class="col-md-1">
+			    <?php if(in_array("KiBe", $tn)): ?>
+			      <a class="disabled btn btn-md btn-primary" href="javascript:void(0)"> 
+			        KiBe
+			      </a>
+			    <?php endif ; ?>
+			  </div>
+			  <div class="col-md-2">
+			     <?php if(in_array("J+S Kids", $tn)): ?> 
+			      <a class="disabled btn btn-md btn-danger" href="javascript:void(0)"> 
+			        J+S Kids
+			      </a>
+			     <?php endif ; ?>
+			   </div>
+			</div>
     <br/>
     <p><?php echo $Event['teaser']; ?></p>
     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-<?php echo $Event[id];?>">Detailierte Ausschreibung</button>
-
     <hr>
     
     <div class="modal fade" id="modal-<?php echo $Event[id];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -21,11 +51,44 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h3 class="modal-title text-center" id="myLargeModalLabel">
-              <?php echo $Event['titel']; ?>
-		      <br/>
-			  <?php echo $Event['start_date']; ?> <?php if($Event['end_date']) : ?> bis <?php echo $Event['end_date']; ?> <?php endif ; ?>
+            <br/>
+            <h3 class="text-center" id="myLargeModalLabel">
+                <?php echo $Event['titel']; ?>
+		        <small>
+			    <?php echo $Event['start_date']; ?> <?php if($Event['end_date']) : ?> bis <?php echo $Event['end_date']; ?> <?php endif ; ?>
+			    </small>
 			</h3>
+            <div class="text-center row">
+              <div class="col-md-<?php echo $tnRows; ?>">
+                <?php if(in_array("JO", $tn)): ?>
+	              <span style="font-size: 90px;" class="icon-JO-Alter">
+		             <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span><span class="path15"></span><span class="path16"></span><span class="path17"></span><span class="path18"></span><span class="path19"></span><span class="path20"></span><span class="path21"></span><span class="path22"></span><span class="path23"></span><span class="path24"></span><span class="path25"></span><span class="path26"></span><span class="path27"></span><span class="path28"></span><span class="path29"></span><span class="path30"></span><span class="path31"></span><span class="path32"></span><span class="path33"></span><span class="path34"></span><span class="path35"></span><span class="path36"></span><span class="path37"></span><span class="path38"></span><span class="path39"></span><span class="path40"></span><span class="path41"></span><span class="path42"></span><span class="path43"></span><span class="path44"></span><span class="path45"></span><span class="path46"></span><span class="path47"></span><span class="path48"></span><span class="path49"></span><span class="path50"></span><span class="path51"></span><span class="path52"></span><span class="path53"></span><span class="path54"></span><span class="path55"></span><span class="path56"></span><span class="path57"></span><span class="path58"></span><span class="path59"></span><span class="path60"></span><span class="path61"></span><span class="path62"></span><span class="path63"></span>
+	               </span>
+	            <?php endif ; ?>
+              </div>
+              <div class="col-md-<?php echo $tnRows; ?>">
+			    <?php if(in_array("FaBe", $tn)): ?>
+			      <a class="btn btn-lg btn-warning" href="javascript:void(0)"> 
+			        FaBe
+			      </a>
+			     <?php endif ; ?>
+			   </div>
+			   <div class="col-md-<?php echo $tnRows; ?>">
+			     <?php if(in_array("J+S Kids", $tn)): ?> 
+			      <a class="btn btn-lg btn-success" href="javascript:void(0)"> 
+			        J+S Kids
+			      </a>
+			     <?php endif ; ?>
+			   </div>
+			   <div class="col-md-<?php echo $tnRows; ?>">
+			    <?php if(in_array("KiBe", $tn)): ?>
+			    
+			    <span style="font-size: 90px;" class="icon-KiBe-Alter">
+		          <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span><span class="path15"></span><span class="path16"></span><span class="path17"></span><span class="path18"></span><span class="path19"></span><span class="path20"></span><span class="path21"></span><span class="path22"></span><span class="path23"></span><span class="path24"></span><span class="path25"></span><span class="path26"></span><span class="path27"></span><span class="path28"></span><span class="path29"></span><span class="path30"></span><span class="path31"></span><span class="path32"></span><span class="path33"></span><span class="path34"></span><span class="path35"></span><span class="path36"></span><span class="path37"></span><span class="path38"></span><span class="path39"></span><span class="path40"></span><span class="path41"></span><span class="path42"></span><span class="path43"></span><span class="path44"></span><span class="path45"></span><span class="path46"></span><span class="path47"></span><span class="path48"></span><span class="path49"></span><span class="path50"></span><span class="path51"></span><span class="path52"></span><span class="path53"></span><span class="path54"></span><span class="path55"></span><span class="path56"></span><span class="path57"></span><span class="path58"></span><span class="path59"></span><span class="path60"></span><span class="path61"></span><span class="path62"></span><span class="path63"></span>
+	            </span>
+			    <?php endif ; ?>
+			  </div>
+			</div>
           </div>
           <div class="modal-body">
           	<!--<div class="container">-->
@@ -170,12 +233,8 @@
 			  Versicherung ist Sache der Teilnehmenden!
           	 </div>
           	 <!------------------------------------------------------------>
-
-                   
+            
           </div> <!-- modal-body -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
         </div>
       </div>
     </div>      

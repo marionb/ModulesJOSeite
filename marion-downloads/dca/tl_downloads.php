@@ -111,20 +111,20 @@ $GLOBALS['TL_DCA']['tl_downloads'] = array
 		),
 		'type'  => array
 		(
-					'label'     => &$GLOBALS['TL_LANG']['tl_ausschreibung']['type'],
+					'label'     => &$GLOBALS['TL_LANG']['tl_downloads']['type'],
 					'inputType' => 'radio',
 					'exclude'   => true,
 					'sorting'   => true,
-					//'flag'      => 1,
-					'options'   => array('Download', 'F&ouml;	hn'),
-					//'reference' => &$GLOBALS['TL_LANG']['tl_ausschreibung'],
+					'options'   => array('Download', 'Foehn'),
 					'eval'      => array(
 							'includeBlankOption' => false,
-							//'submitOnChange'     => true,
 							'mandatory'          => true,
+							'multiple'			 => false,
+							'size'				 => 2,
+							'fieldType' 		 => 'radio',
 							'tl_class'           => 'w50'
 					),
-					'sql'       => "varchar(10) NOT NULL default ''"
+					'sql'       => "blob NULL"
 		),
 		'description' => array
 		(
@@ -137,18 +137,18 @@ $GLOBALS['TL_DCA']['tl_downloads'] = array
 			'eval'                    => array('mandatory'=>false, 'decodeEntities'=>true, 'tl_class'=>'long', 'allowHtml' => true),
 			'sql'                     => "text NULL"
 		),
-                'sort_order' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_downloads']['sort_order'],
-			'inputType'               => 'text',
-			'exclude'                 => true,
-			'sorting'                 => true,
-			'flag'                    => 1,
-			'search'                  => false,
-			'eval'                    => array('mandatory'=>false),
-			'sql'                     => "varchar(125) NOT NULL default '0'"
-		),
-                'count' => array
+			'sort_order' => array
+			(
+					'label'                   => &$GLOBALS['TL_LANG']['tl_downloads']['sort_order'],
+					'inputType'               => 'text',
+					'exclude'                 => true,
+					'sorting'                 => true,
+					'flag'                    => 1,
+					'search'                  => false,
+					'eval'                    => array('mandatory'=>false),
+					'sql'                     => "varchar(125) NOT NULL default '0'"
+			),
+        'count' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_downloads']['count'],
 			'inputType'               => 'hidden',
@@ -164,10 +164,8 @@ $GLOBALS['TL_DCA']['tl_downloads'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_downloads']['href'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
-                        'search'                  => true,
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validFileTypes'], 'mandatory'=>true),
-			//'sql'                     => "varchar(255) NOT NULL default ''"
-
+            'search'                  => true,
+			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['allowedDownload'], 'mandatory'=>true),
 			'sql'                     => "binary(16) NULL",
 		)
 	)
