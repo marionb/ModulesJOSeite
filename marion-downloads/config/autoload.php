@@ -15,10 +15,10 @@
 ClassLoader::addClasses(array
 (
 	// Modules
-	'AjaxClassToCount'         => 'system/modules/downloads/modules/AjaxClassToCount.php',
-	'Contao\ModuleDownload'    => 'system/modules/downloads/modules/ModuleDownload.php',
-	'Contao\ModuleFoehnAlle'   => 'system/modules/downloads/modules/ModuleFoehnAlle.php',
-	'Contao\ModuleFoehnNewest' => 'system/modules/downloads/modules/ModuleFoehnNewest.php',
+	'AjaxClassToCount'         => 'system/modules/marion-downloads/modules/AjaxClassToCount.php',
+	'Contao\ModuleDownload'    => 'system/modules/marion-downloads/modules/ModuleDownload.php',
+	'Contao\ModuleFoehnAlle'   => 'system/modules/marion-downloads/modules/ModuleFoehnAlle.php',
+	'Contao\ModuleFoehnNewest' => 'system/modules/marion-downloads/modules/ModuleFoehnNewest.php',
 ));
 
 
@@ -27,8 +27,8 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'mod_download_downloads'    => 'system/modules/downloads/templates',
-	'mod_download_foehn_alle'   => 'system/modules/downloads/templates',
-	'mod_download_foehn_newest' => 'system/modules/downloads/templates',
-	'mod_download_listing'      => 'system/modules/downloads/templates',
+	'mod_download_downloads'    => 'system/modules/marion-downloads/templates',
+	'mod_download_foehn_alle'   => 'system/modules/marion-downloads/templates',
+	'mod_download_foehn_newest' => 'system/modules/marion-downloads/templates',
+	'mod_download_listing'      => 'system/modules/marion-downloads/templates',
 ));
