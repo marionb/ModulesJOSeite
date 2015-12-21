@@ -2,11 +2,14 @@
   <?php echo $this->cssID; ?>
   <?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
  
-  <?php echo $this->hallo; ?>
+  <img alt="100 Jahre Jugend Pilatus" src="/system/modules/marion-Tile-FE/html/100-Jahre_Button.png">
+  
+  <br/>
+  
   <div class="col-md-6">
-	<div class="well">
+	<div class="well background-FE-tiles">
         <a class="fa-links" href="<?php echo $href['fohn']?>">
-            <h1>F&ouml;hn</h1>
+            <img class="img-rounded img-responsive" alt="100 Jahre Jugend Pilatus" src="http://localhost/JOSeite/system/modules/marion-Tile-FE/html/100-Jahre_Button.png">
 		</a>
     </div>
   </div>
