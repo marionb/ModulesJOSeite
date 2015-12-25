@@ -1,7 +1,7 @@
 <div class="mod_download_foehn_alle <?php echo $this->class; ?>"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
   <h1 class="ce_headline"><img class="img-responsive img-foehn" alt="F&ouml;hn" src="/JOSeite/system/modules/marion-downloads/html/foehn.svg"></h1>
   <div>
-    Der F&ouml;hn ist das mitteilungsblet der Jugend Pilatus. Er beinhaltet Mitteilungen so wie die Ausschreibungen von touren welche in n&auml;chster Zukunft stadt finden.
+    Der F&ouml;hn ist die Monatszeitschrift der Jugend Pilatus. Er erscheint all monatlich mit einer Doppelausgabe im Detzember/Januar und Juli/August. Der F&ouml;hn informiert &uuml;ber kommende Touren, Lager so wie alle anderen Neuigkeiten von der Jugend.
   </div>
   <?php foreach ($this->arrNextDownloads as $Download): ?>
     <?php if($Download['type'] == 'Foehn') : ?>
