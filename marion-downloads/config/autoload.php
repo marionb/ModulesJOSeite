@@ -29,10 +29,10 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'mod_download_downloads'    => 'system/modules/marion-downloads/templates',
-	'mod_download_foehn_alle'   => 'system/modules/marion-downloads/templates',
-	'mod_download_foehn_newest' => 'system/modules/marion-downloads/templates',
-	'mod_download_listing'      => 'system/modules/marion-downloads/templates',
-	'mod_jahresprogram'         => 'system/modules/marion-downloads/templates',
-	'mod_jahresprogram_archiv'  => 'system/modules/marion-downloads/templates',
+	'mod_download_downloads'            => 'system/modules/marion-downloads/templates',
+	'mod_download_foehn_alle'           => 'system/modules/marion-downloads/templates',
+	'mod_download_foehn_newest'         => 'system/modules/marion-downloads/templates',
+	'mod_download_jahresprogram'        => 'system/modules/marion-downloads/templates',
+	'mod_download_jahresprogram_archiv' => 'system/modules/marion-downloads/templates',
+	'mod_download_listing'              => 'system/modules/marion-downloads/templates',
 ));

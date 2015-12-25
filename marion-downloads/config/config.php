@@ -10,7 +10,7 @@ $GLOBALS['FE_MOD']['downloads'] = array
 (
 	'download_foehn_alle'			=> 'ModuleFoehnAlle',
 	'download_foehn_newest'			=> 'ModuleFoehnNewest',
-	'download_jahresprogram'		=> 'ModulJahresprogram',
-	'download_jahresprogram_archiv'	=> 'ModulJahresprogramArchiv'
+	'download_jahresprogram'		=> 'ModuleJahresProgram',
+	'download_jahresprogram_archiv'	=> 'ModuleJahresProgramArchiv'
 );
 ?>

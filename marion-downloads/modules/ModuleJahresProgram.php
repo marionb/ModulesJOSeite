@@ -4,7 +4,7 @@ namespace Contao;
 
 
 
-class ModuleDownloadNewest
+class ModuleDownloadJP
 {
 	/*
 	  Takes a timestamp value and returens a string value of the following fromat: Week-Day,s DD. MM. YY
@@ -75,7 +75,7 @@ class ModuleDownloadNewest
 				'type'			=> $objAus->type,
 				'description'	=> $objAus->description,
 				'href'			=> $objHref,
-				'tstamp'		=> ModuleDownloadNewest::datumswandler(date('Y-m-d', (int)$objAus->tstamp)),
+				'tstamp'		=> ModuleDownloadJP::datumswandler(date('Y-m-d', (int)$objAus->tstamp)),
 			);
 		}
 		return $arrNextDownloas;
@@ -92,7 +92,7 @@ class ModuleJahresProgram extends Module
 	 * Template
 	 * @var string
 	 */
-	protected $strTemplate = 'mod_jahresprogram';
+	protected $strTemplate = 'mod_download_jahresprogram';
 
 	/**
 	 * Display a wildcard in the back end
@@ -108,7 +108,7 @@ class ModuleJahresProgram extends Module
 	 */
 	protected function compile()
 	{
-		$arrNextDownloas = ModuleDownloadNewest::get_downloads($this->Database);
+		$arrNextDownloas = ModuleDownloadJP::get_downloads($this->Database);
 		
 		if (TL_MODE == 'FE') {
 			$this->Template->fmdId = $this->id;

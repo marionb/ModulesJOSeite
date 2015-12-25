@@ -1,7 +1,7 @@
 <?php
 namespace Contao;
 
-class ModuleDownload
+class ModuleDownloadJPArchiv
 {
 	/*
 	  Takes a timestamp value and returens a string value of the following fromat: Week-Day,s DD. MM. YY
@@ -69,7 +69,7 @@ class ModuleDownload
 				'type'			=> $objAus->type,
 				'description'	=> $objAus->description,
 				'href'			=> $objHref,
-				'tstamp'		=> ModuleDownload::datumswandler(date('Y-m-d', (int)$objAus->tstamp)),
+				'tstamp'		=> ModuleDownloadJPArchiv::datumswandler(date('Y-m-d', (int)$objAus->tstamp)),
 			);
 		}
 		return $arrNextDownloas;
@@ -85,7 +85,7 @@ class ModuleJahresProgramArchiv extends Module
 	 * Template
 	 * @var string
 	 */
-	protected $strTemplate = 'mod_jahresprogram_archiv';
+	protected $strTemplate = 'mod_download_jahresprogram_archiv';
 
 
 	/**
@@ -102,7 +102,7 @@ class ModuleJahresProgramArchiv extends Module
 	 */
 	protected function compile()
 	{
-		$arrNextDownloas = ModuleDownload::get_downloads($this->Database);
+		$arrNextDownloas = ModuleDownloadJPArchiv::get_downloads($this->Database);
 		
 		if (TL_MODE == 'FE') {
 			$this->Template->fmdId = $this->id;
