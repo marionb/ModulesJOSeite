@@ -29,7 +29,7 @@ $GLOBALS['TL_LANG']['tl_ausschreibung']['titel'] = array('Touren Bezeichnung', '
 $GLOBALS['TL_LANG']['tl_ausschreibung']['start_date'] = array('Startdatum', 'Startdatum  in der Form YYYY-MM-DD');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['end_date'] = array('Enddatum', 'Enddatum, f&uuml;r Mehrt&auml;gige Touren, in der Form YYYY-MM-DD');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['anmelde_schluss'] = array('Anmeldeschluss', 'Datum in der Form YYYY-MM-DD');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['teaser'] = array('Kurzbeschrieb in 2-3 S&auml;tzen um auf die Tour aufmerksam zu machen', 'Wird im Jahresprogramm und auf der Webseite verwendet um auf die Tour aumerksam zu machen');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['teaser'] = array('Kurzbeschrieb', '2-3 S&auml;tzen um auf die Tour aufmerksam zu machen. Wird im Jahresprogramm und auf der Webseite verwendet um auf die Tour aumerksam zu machen');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['ziel']=array('Gipfel/Klettergebiet','Wichtig f&uuml;r Anmeldung bei J+S; erscheint nicht auf der Website');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['schwierigkeit']=array('Schwierikeitsgrad','Schwierigkeitsgrad gemaess F&uuml;hrer. Verschiedene Skalen sind auf http://www.sac-cas.ch/unterwegs/schwierigkeits-skalen.html zu finden.');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['route']=array('Route','z.B Nummer aus SAC-F&uuml;hrer oder Beschreibung mit Quelle. Wird f&uuml;r J+S Anmeldung verwendet');
@@ -48,6 +48,7 @@ $GLOBALS['TL_LANG']['tl_ausschreibung']['anmeldung']=array('Anmeldung','WIE, WO 
 $GLOBALS['TL_LANG']['tl_ausschreibung']['type']=array('Art der Tour','');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['teilnehmer']=array('Teilnehmerkreis','Bitte alle Zutreffenden ankreuzen');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['bilder']=array('Bild','Hier kann ein Bild f&uuml;r die Ausschreibung gew&auml;hlt werden');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['show_price']=array('Preis anzeigen', 'preis auf der Webseite &ouml;ffentlich anzeigen.');
 //$GLOBALS['TL_LANG']['tl_ausschreibung'][]=array('','');
 
 
