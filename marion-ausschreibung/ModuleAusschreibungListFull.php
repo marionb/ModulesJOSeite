@@ -52,6 +52,33 @@ class ModuleAusschreibungListFull extends Module
     			}
     		}
     		
+    		//Deciper the text of the cost
+    		$costs = "Werden zu einem sp&auml;eren Zeitpukt bekannt gegeben.";
+    		$interval = 0;
+    		if($objAus->kosten != null )
+    		{
+    			if($objAus->end_date != 0)
+    			{
+    				$begin=new \DateTime();
+    				$end = new \DateTime();
+    				$begin->setTimestamp((int)$objAus->start_date);
+    				$end->setTimestamp((int)$objAus->end_date);
+    				
+    				$interval = $begin->diff($end, true);
+    				$interval = (int)$interval->days;
+    			}
+    			
+    			if($interval <= 2 || $objAus->show_price)
+    			{
+    				$costs = $objAus->kosten;
+    			}   			
+    		}
+    			
+
+
+    			
+    		
+    		
     		$arrAus[] = array
     		(
     			'titel'				=> $objAus->titel,
@@ -74,7 +101,7 @@ class ModuleAusschreibungListFull extends Module
     			'rueckkehr' 		=> $objAus->rueckkehr, 
     			'verpflegung' 		=> $objAus->verpflegung,
     			'anforderung' 		=> $objAus->anforderung, 
-    			'kosten' 			=> $objAus->kosten, 
+    			'kosten' 			=> $costs, 
     			'material' 			=> $objAus->material,
     			'anmeldung' 		=> $objAus->anmeldung,
     			'bilder'			=> $objIMG,
@@ -86,7 +113,8 @@ class ModuleAusschreibungListFull extends Module
     	if (TL_MODE == 'FE') {
     		$this->Template->fmdId = $this->id;
     		$this->Template->Ausschreibung = $arrAus;
-    	} }  	
+    	} 
+    }
     	
     	protected function datumswandler($Datum)
     	{
