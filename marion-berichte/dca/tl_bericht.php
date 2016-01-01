@@ -115,14 +115,21 @@ $GLOBALS['TL_DCA']['tl_bericht'] = array(
 					'eval'                    => array('maxlength'=>50, 'tl_class'=>'long', 'mandatory'=>'true'),
 					'sql'                     => "varchar(50) NOT NULL default ''"
 				),
-				'bild' => array
-				(
+       		   'assignedDir'          => array(
+       				'label'     => &$GLOBALS['TL_LANG']['tl_bericht']['bild'],
+       				'exclude'   => true,
+       				'inputType' => 'fileTree',
+       				'eval'      => array('mandatory' => false, 'fieldType' => 'radio', 'tl_class' => 'clr'),
+       				'sql'       => "blob NULL",
+       		   	),
+				/*'bild' => array
+				(					
 					'label'                   => &$GLOBALS['TL_LANG']['tl_bericht']['bild'],
 					'exclude'                 => true,
 					'inputType'               => 'fileTree',
-					'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']),
-					'sql'                     => "binary(16) NULL",
-				),				
+					'eval'                    => array('multiple'=>true, 'fieldType'=>'checkbox', 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']),
+					'sql'                     => "blob NULL",
+				),	*/			
 				'teaser' => array(
 					'label'                   => &$GLOBALS['TL_LANG']['tl_bericht']['teaser'],
 					'exclude'                 => true,
@@ -142,15 +149,7 @@ $GLOBALS['TL_DCA']['tl_bericht'] = array(
 					'inputType'               => 'textarea',
 					'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
 					'sql'                     => "text NULL"
-				),
-				'PDF' => array
-				(
-					'label'                   => &$GLOBALS['TL_LANG']['tl_bericht']['PDF'],
-					'exclude'                 => true,
-					'inputType'               => 'fileTree',
-					'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']),//TODO: change to valid download type
-					'sql'                     => "binary(16) NULL",
-				),
+				)
        )
 );
 

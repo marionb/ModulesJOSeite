@@ -72,8 +72,7 @@ class ModuleBerichtList extends Module
     		    'title' => $objAus->titel,//todo check name
                 'cover' => $strCover,
 				'teaser' => $objAus->teaser,
-                'text' => $objAus->text,
-    			//'PDF'  => $srtPDF TODO
+                'text' => $objAus->text
     		);
     	}
     	if (TL_MODE == 'FE') {
