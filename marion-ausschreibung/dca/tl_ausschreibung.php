@@ -68,22 +68,21 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
 
        // List
        'list' => array(
-              'sorting' => array(
-                     'mode' => 1, //Sortierung nach einem festen Feld
-                     'fields' => array('titel'),
-                     'flag' => 1,  //Aufsteigende Sortierung nach Anfangsbuchstaben
-                     'panelLayout' => 'filter;sort,search,limit',
-                     'disableGrouping' => true 
+              'sorting' => array(              		
+                     'mode' 			=> 2, //Sortierung nach einem festen Feld
+                     'fields'			=> array('titel', 'start_date', 'end_date', 'anmelde_schluss', 'ziel', 'route', 'teilnehmer', 'type', 'show_price'),
+                     //'flag' 			=> 1,  //Aufsteigende Sortierung nach Anfangsbuchstaben
+                     'panelLayout' 		=> 'filter,sort,search,limit',
+                     //'disableGrouping' 	=> true 
               ),
               'label' => array(
-                     'fields' => array( //TODO -> choos the fields 
-                            'titel',
-                     ),
-                     'format' => '%s', //TODO
-                     //'label_callback' => array(
-                     //       'tl_ausschreibung',
-                     //       'labelCallback' //??
-                     //) //aufruf der eigenen Routine fuer die Ausgabe
+              		'fields'			=> array('titel', 'vorname_org', 'name_org', 'show_price'),
+                     //'fields' => array('titel', 'start_date'),
+                     'format' => '%s - %s %s - %d', //TODO
+                     /*'label_callback' => array(
+                            'tl_ausschreibung',
+                            'labelCallback' //??
+                     ) */ //aufruf der eigenen Routine fuer die Ausgabe
 
               ),
               'global_operations' => array( //Bearbeitungsfelder unterhalb der Filterfelder
@@ -123,7 +122,7 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
              // Palettes
         'palettes' => array(
               '__selector__' => array(),
-              'default' => '{Titel}, titel; {Zeit}, start_date, end_date, anmelde_schluss; {Tourenbeschrieb}, teaser, ziel, schwierigkeit, route, teilnehmer, type; {Angaben zum Organisator (Diese Person ist zustaendig fuer die Administration)}, vorname_org, name_org; {Leitung und Verantwortliche}, leiter_verantwortlich, leiter; {Detailangaben falls bereits bekannt}, text, treffpkt, rueckkehr, verpflegung, anforderung, kosten, material, anmeldung; {Bilder hoch laden}, bilder',//TODO
+              'default' => '{Titel}, titel; {Zeit}, start_date, end_date, anmelde_schluss; {Tourenbeschrieb}, teaser, ziel, schwierigkeit, route, teilnehmer, type; {Angaben zum Organisator (Diese Person ist zustaendig fuer die Administration)}, vorname_org, name_org; {Leitung und Verantwortliche}, leiter_verantwortlich, leiter; {Detailangaben falls bereits bekannt}, text, treffpkt, rueckkehr, verpflegung, anforderung, kosten, material, anmeldung; {Bilder hoch laden}, bilder, show_price',
        ),
 
 
@@ -396,11 +395,25 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        		),
        		'bilder' => array
        		(
-       				'label'                   => &$GLOBALS['TL_LANG']['tl_downloads']['bilder'],
+       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['bilder'],
        				'exclude'                 => true,
        				'inputType'               => 'fileTree',
        				'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']),
        				'sql'                     => "binary(16) NULL"
+       		),
+       		'show_price'=> array(
+       				'label'					  => &$GLOBALS['TL_LANG']['tl_ausschreibung']['show_price'],
+       				'exclude'				  => true,       				
+       				'inputType' 			  => 'checkbox',
+       				'sorting'   			  => true,
+       				'eval'					  => array(
+       						
+       						'includeBlankOption'	=> false,
+       						'mandatory'				=> false,
+       						'isBoolean'				=> true,
+       						'fieldType'				=> 'checkbox',
+       				),
+       				//'sql'       			  => "tinyint default 0" //"varchar(30) NOT NULL default ''"
        		)
        )
 );
@@ -601,12 +614,12 @@ class tl_ausschreibung extends Backend
        }
 
 
-  /*     public function labelCallback($row, $label)
+       /*public function labelCallback($row, $label)
        {
 
               $label = str_replace('#datum#', date('Y-m-d', (int)$row['start_date']), $label);
 
-              $mysql = $this->Database->prepare('SELECT start_date,trainers FROM tl_praesenzkontrolle WHERE id=?')->execute($row['id']);
+              $mysql = $this->Database->prepare('SELECT start_date FROM tl_ausschreibung WHERE id=?')->execute($row['id']);
 
               if (time() > $row['start_date'])
               {
@@ -618,8 +631,8 @@ class tl_ausschreibung extends Backend
               }
               $label = str_replace('#STATUS#', $status, $label);
               return $label;
-       }
-*/
+       }*/
+
 
        /*erstellt anhand des startDatums in der db die Kalenderwoche in der der Anlass stattfindet*/
        /*public function setKalenderwocheToDb()
