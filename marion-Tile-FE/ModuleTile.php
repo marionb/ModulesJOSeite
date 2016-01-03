@@ -16,14 +16,14 @@ class ModuleTile extends Module
   protected function compile()
   {
   	
-  	$arrayhref [] = array 
+  	$href [] = array 
   	(
-  			'fohn'		=> '#',
-  			'jprogram' 	=> '#',
-  			'bericht'	=> '#',
-  			'kontakt'	=> '#',
+			'foehn'		=> 'http://100-jahre.jugend-pilatus.ch',
+  			'touren' 	=> 'index.php/ausschreibungen.html',
+  			'bericht'	=> 'index.php/berichte.html',
+  			'portrait'	=> 'index.php/PortraitKontakt.html',
   	);
-    $this->Template->href = $arrayhref;
+    $this->Template->href = $href;
   }
 }
 
