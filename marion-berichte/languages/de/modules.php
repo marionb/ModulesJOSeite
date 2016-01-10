@@ -33,6 +33,6 @@ $GLOBALS['TL_LANG']['MOD']['bericht'] = array('Bericht', 'Ein Bericht erstellen 
  */
 $GLOBALS['TL_LANG']['FMD']['bericht_liste'] = array('Bericht Liste', 'Eine Bericht im Frontend darstellen.');
 //TODO 
-//$GLOBALS['TL_LANG']['FMD']['bericht_link_list'] = array('Bericht Link Liste', 'Eine Liste von Berichten');
+$GLOBALS['TL_LANG']['FMD']['bericht_shortlist'] = array('Bericht Link Liste', 'Eine Liste von Berichten');
 
 ?>

@@ -13,5 +13,6 @@ $GLOBALS['BE_MOD']['content']['bericht'] = array(
 */
 array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0, array
 		(
-				'BerichtList' => 'ModuleBerichtList'
+				'BerichtList' 			=> 'ModuleBerichtList',
+				'BerichtListShort'		=> 'ModuleBerichtListShort'
 		));

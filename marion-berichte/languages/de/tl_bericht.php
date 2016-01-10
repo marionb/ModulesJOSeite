@@ -26,8 +26,8 @@
  * Fields
  */
 $GLOBALS['TL_LANG']['tl_bericht']['titel'] = array('Titel', 'Bericht Titel');
-$GLOBALS['TL_LANG']['tl_bericht']['bild'] = array('Bild', 'Foto zum Bericht');
-$GLOBALS['TL_LANG']['tl_bericht']['teaser'] = array('Teaser', 'Kurtztext zum Beschrieb des Berichtes');
+$GLOBALS['TL_LANG']['tl_bericht']['bilder'] = array('Cover Bild', 'Bild zur Bericht &Uuml;bersicht');
+$GLOBALS['TL_LANG']['tl_bericht']['teaser'] = array('Teaser', 'Kurtztext zum Beschrieb des Berichtes max 700 Zeichen');
 $GLOBALS['TL_LANG']['tl_bericht']['text'] = array('Text', 'Berichttext');
 /**
  * Buttons
