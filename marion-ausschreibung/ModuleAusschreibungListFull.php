@@ -53,7 +53,7 @@ class ModuleAusschreibungListFull extends Module
     		}
     		
     		//Deciper the text of the cost
-    		$costs = "Werden zu einem sp&auml;eren Zeitpukt bekannt gegeben.";
+    		$costs = "Werden zu einem sp&auml;teren Zeitpukt bekannt gegeben.";
     		$interval = 0;
     		if($objAus->kosten != null )
     		{
