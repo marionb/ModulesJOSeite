@@ -21,11 +21,23 @@ class ModuleAusschreibungListFull extends Module
      */
     protected function compile()
     {
-        
-    	//die ganze Tabelle
-    	
-    	$objAus = $this->Database->execute("SELECT * FROM tl_ausschreibung ORDER BY start_date ASC");//TODO ASC needs to change in to Descending
-    	
+    	//Determine the page on which the module is on
+    	$current_page=$_SERVER['PHP_SELF'];
+    	$berichte_page="berichte.html"; //TODO
+    	$full_list;
+    	$objAus;
+    	 
+    	if(strpos($current_page, $berichte_page) == false)
+    	{
+    		$objAus = $this->Database->prepare("SELECT * FROM tl_ausschreibung WHERE start_date >= UNIX_TIMESTAMP() ORDER BY start_date ASC")->limit(3)->execute(time());
+    		$full_list = false;
+    	}
+    	else
+    	{
+    		$objAus = $this->Database->prepare("SELECT * FROM tl_ausschreibung ORDER BY start_date ASC")->execute(time());
+    		$full_list = true;
+    	}
+    	    	
     	//Return if no Ausschreibungen were found
     	if(!$objAus-numRows){ return;}
     	
@@ -73,11 +85,6 @@ class ModuleAusschreibungListFull extends Module
     				$costs = $objAus->kosten;
     			}   			
     		}
-    			
-
-
-    			
-    		
     		
     		$arrAus[] = array
     		(
@@ -112,6 +119,7 @@ class ModuleAusschreibungListFull extends Module
     	}
     	if (TL_MODE == 'FE') {
     		$this->Template->fmdId = $this->id;
+    		$this->Template->full_list = $full_list;
     		$this->Template->Ausschreibung = $arrAus;
     	} 
     }
