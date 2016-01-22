@@ -194,7 +194,7 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
 							'tl_class'		  =>'long',
 							'mandatory'		  =>true
 							),
-					'sql'                     => "varchar(400) NOT NULL default ''"
+					'sql'                     => "varchar(700) NOT NULL default ''"
 				),
 				'type'  => array
 				(
@@ -211,7 +211,7 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
 						'mandatory'          => true,
 						'tl_class'           => 'w50'
 					),
-					'sql'       => "varchar(10) NOT NULL default ''"
+					'sql'       => "varchar(15) NOT NULL default ''"
 				),
        		    'ziel' => array(
        		    		'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['ziel'],

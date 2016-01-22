@@ -38,13 +38,7 @@ class ModuleBerichtList extends Module
  
         return parent::generate();
     }
- 
- 
-    
-    
-    
-    
-    
+
     /**
      * Generate the module
      */
@@ -53,30 +47,57 @@ class ModuleBerichtList extends Module
         
     	//die ganze Tabelle
     	$arrAus = array();
-    	$objAus = $this->Database->execute("SELECT * FROM tl_bericht ORDER BY titel ASC");//TODO ORDER BY erfassungs datum
+    	
+    	$current_page=$_SERVER['PHP_SELF'];
+    	$berichte_page="berichte.html";
+    	$full_list;
+    	
+    	if(strpos($current_page, $berichte_page) == false)
+    	{
+    		$objAus = $this->Database->prepare("SELECT * FROM tl_bericht ORDER BY tstamp DESC")->limit(3)->execute(time());
+    		$full_list = false;
+    		
+    	}
+    	else 
+    	{
+    		$objAus = $this->Database->prepare("SELECT * FROM tl_bericht ORDER BY tstamp DESC")->execute(time());
+    		$full_list = true;
+    	}	
     	
     	while ($objAus->next()) {
-    	    //cover Image
-            $strCover = '';
-            $objCover = \FilesModel::findByPk($objCds->bild);
- 
-            // Add cover image
-            if ($objCover !== null)
-            {
-                $strCover = \Image::getHtml(\Image::get($objCover->path, '100', '100', 'center_center'));
-            }
+    	    //retrieve image for overview
+    		$objIMG = null;
+    		$objIMGText = null;
+    		if($objAus->bilder != '')
+    		{
+    			$objModel = \FilesModel::findByUuid($objAus->bilder);
+    			
+    			if($objModel === null) //Identical: $objAus is identical to Null even if the type of null is not the same as $objAus
+    			{
+    				if(!\Validator::isUuid($objAus->bilder))
+    				{
+    					$objIMGText = '<p class="error">'.$GLOBALS['TL_LANG']['ERR']['version2format'].'</p>';
+    				}
+    			}
+    			elseif (is_file(TL_ROOT . '/' . $objModel->path))
+    			{
+    				  				
+    				$objIMG = $objModel->path;
+    			}
+    		}
             
     		$arrAus[] = array
     		(
-    		    'id'=> $objAus->id,
-    		    'title' => $objAus->titel,//todo check name
-                'cover' => $strCover,
-				'teaser' => $objAus->teaser,
-                'text' => $objAus->text,
-    			//'PDF'  => $srtPDF TODO
+    		    'id'			=> $objAus->id,
+    		    'title'			=> $objAus->titel,
+                'image'			=> $objIMG,
+				'teaser'		=> $objAus->teaser,
+                'text'			=> $objAus->text,
+    			'full_list'		=> $full_list
     		);
     	}
     	if (TL_MODE == 'FE') {
+    		$this->Template->full_list=$full_list;
     		$this->Template->fmdId = $this->id;
     		$this->Template->Berichte = $arrAus;
     	}

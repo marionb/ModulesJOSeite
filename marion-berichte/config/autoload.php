@@ -3,7 +3,7 @@
 /**
  * Contao Open Source CMS
  *
- * Copyright (c) 2005-2015 Leo Feyer
+ * Copyright (c) 2005-2016 Leo Feyer
  *
  * @license LGPL-3.0+
  */
@@ -14,7 +14,8 @@
  */
 ClassLoader::addClasses(array
 (
-	'Contao\ModuleBerichtList' => 'system/modules/marion-berichte/ModuleBerichtList.php',
+	'Contao\ModuleBerichtList'      => 'system/modules/marion-berichte/ModuleBerichtList.php',
+	'Contao\ModuleBerichtListShort' => 'system/modules/marion-berichte/ModuleBerichtListShort.php',
 ));
 
 
@@ -23,5 +24,6 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'mod_berichtlist' => 'system/modules/marion-berichte/templates',
+	'mod_berichtlist'      => 'system/modules/marion-berichte/templates',
+	'mod_berichtlistshort' => 'system/modules/marion-berichte/templates',
 ));

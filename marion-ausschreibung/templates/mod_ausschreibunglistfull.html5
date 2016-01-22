@@ -1,10 +1,26 @@
 <div class="mod_ausschreibunglistfull <?php echo $this->class; ?>"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
    <?php if ($this->headline): ?>
-
   <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
   <?php endif; ?>
+  
+  <?php $full_list = $this->full_list; ?>
 
-  <h1 class="ce_headline">Jahresprogramm 2016</h1>
+  <?php if($full_list): ?>
+  <h1 class="ce_headline">Touren 2016</h1>
+  <?php else: ?>
+  <h1 class="ce_headline">N&aumlchste Touren</h1>
+  <?php endif; ?>
+  
+  <?php if($this->Ausschreibung == null): ?>
+  <div>
+    <?php if($full_list): ?>
+    <h3>Es sind noch keine Touren in der n&auml;chsten Zeit geplaant.</h3>
+    <?php else: ?>
+    <h3>Momentan sind keine Touren verf&uuml;gbar</h3>
+    <?php endif; ?>
+  </div>
+  
+  <?php else: ?>
   
   <?php foreach ($this->Ausschreibung as $Event): ?>
   <?php $tn = $Event['teilnehmer']; ?>
@@ -12,35 +28,39 @@
   <div>
     <h3><?php echo $Event['titel']; ?> <small><?php echo $Event['start_date']; ?> <?php if($Event['end_date']) : ?> bis <?php echo $Event['end_date']; ?> <?php endif ; ?></small></h3>
       <div class="Jugend-btn">
-            <div class="row">
-              <div class="col-md-1">
-                <?php if(in_array("JO", $tn)): ?>
+            <div class="row text-center">
+            <?php if(in_array("JO", $tn)): ?>
+              <div class="col-md-2 col-sm-2 col-xs-3">
 	             <a class="disabled btn btn-md btn-success JO-btn" href="javascript:void(0)"> 
 			        JO
 			      </a>
-	            <?php endif ; ?>
               </div>
-              <div class="col-md-1">
-			    <?php if(in_array("FaBe", $tn)): ?>
+              <?php endif ; ?>
+              <!-- ------- -->
+              <?php if(in_array("FaBe", $tn)): ?>
+              <div class="col-md-2 col-sm-2 col-xs-3">
 			      <a class="disabled btn btn-md btn-warning FaBe-btn" href="javascript:void(0)"> 
 			        FaBe
 			      </a>
-			     <?php endif ; ?>
 			   </div>
-			   <div class="col-md-1">
-			    <?php if(in_array("KiBe", $tn)): ?>
-			      <a class="disabled btn btn-md btn-primary KiBe-btn" href="javascript:void(0)"> 
-			        KiBe
-			      </a>
-			    <?php endif ; ?>
-			  </div>
-			  <div class="col-md-2">
-			     <?php if(in_array("J+S Kids", $tn)): ?> 
+			   <?php endif ; ?>
+			  <!-- ------- -->
+			  <?php if(in_array("J+S Kids", $tn)): ?>
+			  <div class="col-md-2 col-sm-2 col-xs-3">
 			      <a class="disabled btn btn-md btn-danger JSKids-btn" href="javascript:void(0)"> 
 			        J+S Kids
 			      </a>
-			     <?php endif ; ?>
 			   </div>
+			   <?php endif ; ?>
+			   <!-- ------- -->
+			   <?php if(in_array("KiBe", $tn)): ?>
+			   <div class="col-md-2 col-sm-2 col-xs-3">
+			      <a class="disabled btn btn-md btn-primary KiBe-btn" href="javascript:void(0)"> 
+			        KiBe
+			      </a>
+			  </div>
+			  <?php endif ; ?>
+			   <!-- ------- -->
 			</div>
 		</div>
     <br/>
@@ -231,11 +251,20 @@
 			  Versicherung ist Sache der Teilnehmenden!
           	 </div>
           	 <!------------------------------------------------------------>
-            
           </div> <!-- modal-body -->
+          <div class="modal-footer">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div> <!-- modal-footer -->
         </div>
       </div>
     </div>      
   </div>
+  
   <?php endforeach; ?>
+  <?php endif; ?>
+  
+  <?php if(!$full_list): ?>
+    <a role="button" class="btn btn-primary" href="index.php/ausschreibungen.html">Weitere Ausschreibungen</a>
+  <?php endif; ?>
+  
 </div>
