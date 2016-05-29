@@ -29,7 +29,6 @@ class ModuleAusschreibungListFull extends Module
     	
     	//retrieve the search query from the GET statement in the URL
     	$url_query_fields = ["start_date" => false, "id" => false, "type" => false, "teilnehmer" => false];
-    	//$term_results = array();
     	$sql_where_clause='';
     	foreach ($url_query_fields as $term => $value)
     	{
@@ -59,15 +58,12 @@ class ModuleAusschreibungListFull extends Module
     	
     	if($sql_where_clause!== '')
     	{
-    		//$param = $term_results['type'];
     		$sql = "SELECT * FROM tl_ausschreibung where $sql_where_clause order by start_date ASC";
-    		//$sql = "SELECT * FROM tl_ausschreibung where type=klettern order by start_date ASC";
     	}
     	else
     	{
     	    $sql ="SELECT * FROM tl_ausschreibung ORDER BY start_date ASC";	
     	}
-    	echo "Query statement: ".	$sql;
     	if(strpos($current_page, $berichte_page) == false)
     	{
     		$objAus = $this->Database->prepare("SELECT * FROM tl_ausschreibung WHERE start_date >= UNIX_TIMESTAMP() ORDER BY start_date ASC")->limit(3)->execute(time());
@@ -75,7 +71,6 @@ class ModuleAusschreibungListFull extends Module
     	}
     	else
     	{
-    		//$objAus = $this->Database->prepare("SELECT * FROM tl_ausschreibung ORDER BY start_date ASC")->execute(time());
     		$objAus = $this->Database->prepare($sql)->execute(time());
     		$full_list = true;
     	}
@@ -134,6 +129,7 @@ class ModuleAusschreibungListFull extends Module
                 'start_date'		=> $this->datumswandler(date('Y-m-d', (int)$objAus->start_date)),
                 'end_date'			=> $this->datumswandler_checkZero($objAus->end_date),
                 'anmelde_schluss'	=> $this->datumswandler(date('Y-m-d', (int)$objAus->anmelde_schluss)),
+    			'show_anmelde_schluss'=> $this->print_anmelde_schluss((int)$objAus->anmelde_schluss, 168),
 				'ziel'				=> $objAus->ziel,
     			'schwierigkeit'		=> $objAus->schwierigkeit,
     			'route'				=> $objAus->route,
@@ -228,5 +224,30 @@ class ModuleAusschreibungListFull extends Module
     		}
     		return $result;
     	}
+    	
+    	/*
+    	 * function returnes checks if the anmelde_schluss lies in a given time range from now
+    	 * @anmelde_schluss: timestamp of the anmelde_schluss
+    	 * @difference: time range to be considered from now
+    	 * @return: true if the anmelde_schluss is within the timerange else false. Dates thate ade in the past fom now are all false
+    	 */
+    	//
+    	protected function print_anmelde_schluss($anmelde_schluss, $difference)
+    	{
+    		if($anmelde_schluss < time())
+    			return false;
+
+    		$tmp = ($anmelde_schluss - time())/3600;
+    		if($tmp <= $difference)
+    		{
+    			if($tmp < 24)
+    				return round($tmp) . "Stunden";
+    			else
+    				return round($tmp/24) . " Tagen";
+    		}
+    		else return false;
+
+    	}
+    	
             
 }

@@ -65,6 +65,12 @@
 		</div>
     <br/>
     <p><?php echo $Event['teaser']; ?></p>
+    <?php if ($Event['show_anmelde_schluss']): ?>
+    <div>
+    <em>Letzte Anmeldung in <?php echo $Event['show_anmelde_schluss']; ?>.</em>
+    </div>
+    <br/>
+    <?php endif; ?>
     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-<?php echo $Event[id];?>">Detailierte Ausschreibung</button>
     <hr>
     
@@ -145,6 +151,15 @@
           	    </div>
           	    <div class="col-md-10">
           	      <?php echo $Event['ziel']; ?>
+          	    </div>
+          	  </div> <!-- row -->
+          	  <!------------------------------------------------------------>
+          	  <div class="row">
+          	    <div class="col-md-2">
+          	      <strong>Art der Tour</strong>
+          	    </div>
+          	    <div class="col-md-10">
+          	      <?php echo $Event['type']; ?>
           	    </div>
           	  </div> <!-- row -->
           	  <!------------------------------------------------------------>
@@ -245,6 +260,17 @@
           	    <?php endif; ?>
           	  </div> <!-- row -->
           	  <!------------------------------------------------------------>
+          	  <div class="row">
+          	    <?php if($Event['anmelde_schluss']) : ?>
+          	      <div class="col-md-2">
+          	        <strong>Anmeldung bis </strong>
+          	      </div>
+          	      <div class="col-md-10">
+          	        <?php echo $Event['anmelde_schluss']; ?>
+          	      </div>
+          	    <?php endif; ?>
+          	  </div> <!-- row -->
+          	  <!------------------------------------------------------------>
           	<!--</div>  container -->
           	<br/>
           	<div class="alert alert-warning text-center">
@@ -261,8 +287,9 @@
   </div>
   
   <?php endforeach; ?>
+  </div>
   <?php endif; ?>
-  
+
   <?php if(!$full_list): ?>
     <a role="button" class="btn btn-primary" href="index.php/ausschreibungen.html">Weitere Ausschreibungen</a>
   <?php endif; ?>
