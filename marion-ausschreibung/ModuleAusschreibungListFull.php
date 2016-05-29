@@ -26,7 +26,48 @@ class ModuleAusschreibungListFull extends Module
     	$berichte_page="berichte.html"; //TODO
     	$full_list;
     	$objAus;
-    	 
+    	
+    	//retrieve the search query from the GET statement in the URL
+    	$url_query_fields = ["start_date" => false, "id" => false, "type" => false, "teilnehmer" => false];
+    	//$term_results = array();
+    	$sql_where_clause='';
+    	foreach ($url_query_fields as $term => $value)
+    	{
+    		if($_GET[$term] != NULL)
+    		{
+    			$url_query_fields[$term]= true;
+    			//get an array of all the query results for one query terms (query results are comma separated)
+    			$GET_array = explode(',', $_GET[$term]);
+    			
+    			//generate an sql statement using the array above
+    			$formated_sql = array();
+    			foreach ($GET_array as $GET_result)
+    			{
+    				
+    				//An OR is needed if multiple termes are searched
+    				$where_equation = sprintf("%s = '%s'", mysql_escape_string($term), mysql_escape_string($GET_result));
+    				array_push($formated_sql, $where_equation);
+    				
+    			}
+    			if($sql_where_clause !== '')
+    			{
+    			$sql_where_clause .= ' AND ' . '(' . implode(' OR ',$formated_sql) . ')';
+    			}
+    			else $sql_where_clause = '(' . implode(' OR ',$formated_sql) . ')';
+    		}	
+    	}
+    	
+    	if($sql_where_clause!== '')
+    	{
+    		//$param = $term_results['type'];
+    		$sql = "SELECT * FROM tl_ausschreibung where $sql_where_clause order by start_date ASC";
+    		//$sql = "SELECT * FROM tl_ausschreibung where type=klettern order by start_date ASC";
+    	}
+    	else
+    	{
+    	    $sql ="SELECT * FROM tl_ausschreibung ORDER BY start_date ASC";	
+    	}
+    	echo "Query statement: ".	$sql;
     	if(strpos($current_page, $berichte_page) == false)
     	{
     		$objAus = $this->Database->prepare("SELECT * FROM tl_ausschreibung WHERE start_date >= UNIX_TIMESTAMP() ORDER BY start_date ASC")->limit(3)->execute(time());
@@ -34,7 +75,8 @@ class ModuleAusschreibungListFull extends Module
     	}
     	else
     	{
-    		$objAus = $this->Database->prepare("SELECT * FROM tl_ausschreibung ORDER BY start_date ASC")->execute(time());
+    		//$objAus = $this->Database->prepare("SELECT * FROM tl_ausschreibung ORDER BY start_date ASC")->execute(time());
+    		$objAus = $this->Database->prepare($sql)->execute(time());
     		$full_list = true;
     	}
     	    	
@@ -102,8 +144,7 @@ class ModuleAusschreibungListFull extends Module
                 'text' 				=> $objAus->text,
     			'teaser' 			=> $objAus->teaser,
     			'schwierigkeit' 	=> $objAus->schwierigkeit,
-    			'route' 			=> $objAus->route,
-    			'text' 				=> $objAus->text,
+    			'type' 			    => $objAus->type,
     			'treffpkt' 			=> $objAus->treffpkt, 
     			'rueckkehr' 		=> $objAus->rueckkehr, 
     			'verpflegung' 		=> $objAus->verpflegung,
