@@ -65,11 +65,12 @@
 		</div>
     <br/>
     <p><?php echo $Event['teaser']; ?></p>
-    <?php if ($Event['show_anmelde_schluss']): ?>
-    <div>
-    <em>Letzte Anmeldung in <?php echo $Event['show_anmelde_schluss']; ?>.</em>
-    </div>
+    <div>Link zu dieser Ausschreibung: <a hreff="<?php echo $Event['URL']; ?>"><?php echo $Event['URL']; ?></a></div>
     <br/>
+    <?php if ($Event['show_anmelde_schluss']): ?>
+    <div class="alert alert-danger">
+    <em>Anmeldeschluss in <?php echo $Event['show_anmelde_schluss']; ?>.</em>
+    </div>
     <?php endif; ?>
     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-<?php echo $Event[id];?>">Detailierte Ausschreibung</button>
     <hr>

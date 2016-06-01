@@ -24,6 +24,7 @@ class ModuleAusschreibungListFull extends Module
     	//Determine the page on which the module is on
     	$current_page=$_SERVER['PHP_SELF'];
     	$berichte_page="berichte.html"; //TODO
+    	$BASE_URL ="http://$_SERVER[HTTP_HOST]".strtok($_SERVER['REQUEST_URI'],'?');
     	$full_list;
     	$objAus;
     	
@@ -151,6 +152,7 @@ class ModuleAusschreibungListFull extends Module
     			'bilder'			=> $objIMG,
     			'imgText'			=> $objIMGText,
     			'id'				=> $objAus->id,
+    			'URL'				=> $BASE_URL . "?id=" . $objAus->id,
     			'teilnehmer'		=> $this->get_RadiobuttonRes($objAus->teilnehmer)
     		);
     	}
