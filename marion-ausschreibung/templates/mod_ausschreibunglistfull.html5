@@ -2,7 +2,17 @@
    <?php if ($this->headline): ?>
   <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
   <?php endif; ?>
-  
+
+
+<form id="event_type_form" id="event_type_form" method="get">
+  <select id="event_type" class="form-select" name="event_type"> <!-- onchange="showType(this.value)">-->
+    <option value="">W&auml;hle einen Aktivit&auml;t: </option>
+    <?php foreach ($this->EventTypes as $EventTypes): ?>
+    <option value="<?php echo $EventTypes; ?>"><?php echo $EventTypes; ?> </option>
+    <?php endforeach;?>
+  </select>
+</form>
+
   <?php $full_list = $this->full_list; ?>
 
   <?php if($full_list): ?>
@@ -25,8 +35,18 @@
   <?php foreach ($this->Ausschreibung as $Event): ?>
   <?php $tn = $Event['teilnehmer']; ?>
   <?php $tnRows = 12/count($tn) ; ?>
+  <script type="text/javascript"> 
+    var URL_id = window.location.protocol + "//" + window.location.host + window.location.pathname + "?id=<?php echo $Event['id']; ?>";
+  </script>
   <div>
     <h3><?php echo $Event['titel']; ?> <small><?php echo $Event['start_date']; ?> <?php if($Event['end_date']) : ?> bis <?php echo $Event['end_date']; ?> <?php endif ; ?></small></h3>
+      <?php if ($Event['show_anmelde_schluss']): ?>
+      <div class="label label-warning">
+        <em>Anmeldeschluss in <?php echo $Event['show_anmelde_schluss']; ?>.</em>
+      </div>
+      <br/>
+      <br/>
+      <?php endif; ?>
       <div class="Jugend-btn">
             <div class="row text-center">
             <?php if(in_array("JO", $tn)): ?>
@@ -65,13 +85,8 @@
 		</div>
     <br/>
     <p><?php echo $Event['teaser']; ?></p>
-    <div>Link zu dieser Ausschreibung: <a hreff="<?php echo $Event['URL']; ?>"><?php echo $Event['URL']; ?></a></div>
+    <div>Link zu dieser Ausschreibung: <a href="<?php echo $Event['URL']; ?>"><?php echo $Event['URL']; ?></a></div>
     <br/>
-    <?php if ($Event['show_anmelde_schluss']): ?>
-    <div class="alert alert-danger">
-    <em>Anmeldeschluss in <?php echo $Event['show_anmelde_schluss']; ?>.</em>
-    </div>
-    <?php endif; ?>
     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-<?php echo $Event[id];?>">Detailierte Ausschreibung</button>
     <hr>
     
@@ -272,12 +287,12 @@
           	    <?php endif; ?>
           	  </div> <!-- row -->
           	  <!------------------------------------------------------------>
-          	<!--</div>  container -->
+          	<!--</div>   container -->
           	<br/>
           	<div class="alert alert-warning text-center">
 			  Versicherung ist Sache der Teilnehmenden!
-          	 </div>
-          	 <!------------------------------------------------------------>
+          	</div>
+          	<!------------------------------------------------------------>
           </div> <!-- modal-body -->
           <div class="modal-footer">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -285,7 +300,7 @@
         </div>
       </div>
     </div>      
-  </div>
+  <!-- </div> -->
   
   <?php endforeach; ?>
   </div>
@@ -296,3 +311,131 @@
   <?php endif; ?>
   
 </div>
+
+
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>-->
+<!--<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+
+<script type="text/javascript">
+function showUser(str) {
+    if (str == "") {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","?type="+str,true);
+        xmlhttp.send();
+    }
+}
+
+/*function replace_query_elem(var str, var type)
+{
+	var start_index = str.indexOf(type);
+	start_index = start_index + str.lenght + 1;
+	var end_index 
+	var split
+}*/
+
+$("#event_type").change(function() {
+	var action = $(this).val();
+	alert("the value " + action + " has been selected");
+	var URL = window.location.href;
+	var queryChar = URL.includes("?") && "#" || "?";
+	URL += queryChar + "type=" + action;
+	alert("new load " + URL );
+	window.location.href = URL;
+	if(!URL.includes(action)) //add the query parameter it is missing
+	{
+		var queryChar = URL.includes("?") && "&" || "?";
+		/*var typeExists = URL.includes("type");
+		if(typeExists)
+		{
+			
+		}*/
+	}
+
+	
+	
+	 /*$.ajax({
+	      url: '',
+	      type: 'get',
+	      data: {'action': action},
+	      success: function(data, status) {
+	        if(data == "ok") {
+	          $('#followbtncontainer').html('<p><em>Following!</em></p>');
+	          var numfollowers = parseInt($('#followercnt').html()) + 1;
+	          $('#followercnt').html(numfollowers);
+	        }
+	      },
+	      error: function(xhr, desc, err) {
+	        console.log(xhr);
+	        console.log("Details: " + desc + "\nError:" + err);
+	      }
+	    }); // end ajax call*/
+	
+	
+	/*$.ajax({
+		  url: "?type=" + action,
+		  type: "get", //send it through get method
+		  data:{"type":action},
+		  success: function(data, status) {
+			  alert (status);
+			  alert(data);
+			  
+				  
+		    //Do Something
+		  },
+		  error: function(xhr, desc, err) {
+		        console.log(xhr);
+		        console.log("Details: " + desc + "\nError:" + err);
+		  }
+	}); // end ajax call */
+});
+
+/*
+$("#selectsearch").change(function() {
+	  var action = $(this).val() == "people" ? "user" : "content";
+	  $("#search-form").attr("action", "/search/" + action);
+	});
+
+ <form class="search-form" id="search-form" method="post" accept-charset="UTF-8" action="/search/user">
+ <select id="selectsearch" class="form-select" name="selectsearch">
+ <option value="people">Search people</option>
+ <option value="node">Search content</option>
+ </select>
+
+ <label>Enter your keywords: </label>
+  <input type="text" class="form-text" value="" size="40" id="edit-keys" name="keys" maxlength="255" />
+
+ <input type="submit" class="form-submit" value="Search" id="edit-submit" name="search"/>
+ </form>
+ */
+
+</script>
+
+<!-- 
+<form id="event_type_form" id="event_type_form" method="get">
+  <select id="event_type" class="form-select" name="event_type"> onchange="showType(this.value)">
+    <option value="">W&auml;hle einen Aktivit&auml;t: </option>
+    <?php
+        $id = 0;
+        foreach ($this->EventTypes as $EventTypes): 
+            $id += 1;
+    ?>
+    <option value="<?php echo $id; ?>"><?php echo $EventTypes; ?> </option>
+    <?php endforeach;?>
+  </select>
+</form>
+ -->

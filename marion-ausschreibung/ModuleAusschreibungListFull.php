@@ -27,6 +27,8 @@ class ModuleAusschreibungListFull extends Module
     	$BASE_URL ="http://$_SERVER[HTTP_HOST]".strtok($_SERVER['REQUEST_URI'],'?');
     	$full_list;
     	$objAus;
+    	$objQuery;
+    	$arrEventTypes = [];
     	
     	//retrieve the search query from the GET statement in the URL
     	$url_query_fields = ["start_date" => false, "id" => false, "type" => false, "teilnehmer" => false];
@@ -75,7 +77,13 @@ class ModuleAusschreibungListFull extends Module
     		$objAus = $this->Database->prepare($sql)->execute(time());
     		$full_list = true;
     	}
-    	    	
+    	
+    	$objQuery = $this->Database->prepare("SELECT Distinct type FROM tl_ausschreibung")->execute(time());
+    	while($objQuery->next())
+    	{
+    		array_push($arrEventTypes,$objQuery->type);
+    	}
+    	
     	//Return if no Ausschreibungen were found
     	if(!$objAus-numRows){ return;}
     	
@@ -160,6 +168,7 @@ class ModuleAusschreibungListFull extends Module
     		$this->Template->fmdId = $this->id;
     		$this->Template->full_list = $full_list;
     		$this->Template->Ausschreibung = $arrAus;
+    		$this->Template->EventTypes = array_unique($arrEventTypes);
     	} 
     }
     	
@@ -242,10 +251,31 @@ class ModuleAusschreibungListFull extends Module
     		$tmp = ($anmelde_schluss - time())/3600;
     		if($tmp <= $difference)
     		{
+    			$unit = "";
     			if($tmp < 24)
-    				return round($tmp) . "Stunden";
+    			{
+    				$tmp = round($tmp);
+    				if($tmp == 1)
+    				{
+    					$unit = " Stunde";
+    				}
+    				else $unit = " Stunden";
+    					
+    				return $tmp . $unit;
+    			} 
     			else
-    				return round($tmp/24) . " Tagen";
+    			{
+    				$tmp = round($tmp/24);
+    				if($tmp == 1)
+    				{
+    					$unit = " Tag";
+    				}
+    				else
+    				{
+    					$unit = " Tagen";
+    				}
+    				return $tmp . $unit;
+    			}
     		}
     		else return false;
 

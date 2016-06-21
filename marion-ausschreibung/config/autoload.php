@@ -3,7 +3,7 @@
 /**
  * Contao Open Source CMS
  *
- * Copyright (c) 2005-2015 Leo Feyer
+ * Copyright (c) 2005-2016 Leo Feyer
  *
  * @license LGPL-3.0+
  */
@@ -24,6 +24,7 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'mod_ausschreibunglist'     => 'system/modules/marion-ausschreibung/templates',
-	'mod_ausschreibunglistfull' => 'system/modules/marion-ausschreibung/templates',
+	'mod_ausschreibunglist'      => 'system/modules/marion-ausschreibung/templates',
+	'mod_ausschreibunglistfull'  => 'system/modules/marion-ausschreibung/templates',
+	'mod_ausschreibungnewletter' => 'system/modules/marion-ausschreibung/templates',
 ));
