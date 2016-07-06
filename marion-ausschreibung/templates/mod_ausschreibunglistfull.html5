@@ -3,8 +3,10 @@
   <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
   <?php endif; ?>
 
-
-<form id="event_type_form" id="event_type_form" method="get">
+<div class="row">
+<div class="col-md-2 col-sm-2 col-xs-3">
+<h4>Art der Tour</h4>
+<form id="event_type_form" method="get">
   <select id="event_type" class="form-select" name="event_type"> <!-- onchange="showType(this.value)">-->
     <option value="">W&auml;hle einen Aktivit&auml;t: </option>
     <?php foreach ($this->EventTypes as $EventTypes): ?>
@@ -12,6 +14,17 @@
     <?php endforeach;?>
   </select>
 </form>
+</div>
+<div class="col-md-2 col-sm-2 col-xs-3">
+<h4>Teinehmer</h4>
+<form id="teilnehmer_form" method="get">
+  <input type="radio" name="teilnehmer" value="JO"> JO<br>
+  <input type="radio" name="teilnehmer" value="KiBe"> KiBe<br>
+  <input type="radio" name="teilnehmer" value="FaBe"> FaBe<br>
+  <input type="radio" name="teilnehmer" value="J&SKids"> J&SKids<br>
+</form> 
+</div>
+</div>
 
   <?php $full_list = $this->full_list; ?>
 
@@ -352,7 +365,7 @@ $("#event_type").change(function() {
 	var action = $(this).val();
 	alert("the value " + action + " has been selected");
 	var URL = window.location.href;
-	var queryChar = URL.includes("?") && "#" || "?";
+	var queryChar = URL.includes("?") && "&" || "?";
 	URL += queryChar + "type=" + action;
 	alert("new load " + URL );
 	window.location.href = URL;

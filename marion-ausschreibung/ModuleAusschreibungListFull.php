@@ -23,7 +23,7 @@ class ModuleAusschreibungListFull extends Module
     {
     	//Determine the page on which the module is on
     	$current_page=$_SERVER['PHP_SELF'];
-    	$berichte_page="berichte.html"; //TODO
+    	$berichte_page="berichte.html"; //TODO this should not be set in the code
     	$BASE_URL ="http://$_SERVER[HTTP_HOST]".strtok($_SERVER['REQUEST_URI'],'?');
     	$full_list;
     	$objAus;
@@ -31,61 +31,40 @@ class ModuleAusschreibungListFull extends Module
     	$arrEventTypes = [];
     	
     	//retrieve the search query from the GET statement in the URL
-    	$url_query_fields = ["start_date" => false, "id" => false, "type" => false, "teilnehmer" => false];
-    	$sql_where_clause='';
-    	foreach ($url_query_fields as $term => $value)
+    	$url_query_fields = ["date_newest" => "isOlder", "date_oldest" => "isYunger", "id" => "normal", "type" => "normal", "teilnehmer" => "like"];
+    	$sql_where_clause= $this->GET_SQLWhere_query_builder($url_query_fields);
+    	$sql_select_clause = "SELECT *";
+    	$sql_from_clause = "FROM tl_ausschreibung";
+    	if(strpos($current_page, $berichte_page) == true) //this is the page containing the whole Ausschreibungs list
     	{
-    		if($_GET[$term] != NULL)
+    		if($sql_where_clause!== '')
     		{
-    			$url_query_fields[$term]= true;
-    			//get an array of all the query results for one query terms (query results are comma separated)
-    			$GET_array = explode(',', $_GET[$term]);
-    			
-    			//generate an sql statement using the array above
-    			$formated_sql = array();
-    			foreach ($GET_array as $GET_result)
-    			{
-    				
-    				//An OR is needed if multiple termes are searched
-    				$where_equation = sprintf("%s = '%s'", mysql_escape_string($term), mysql_escape_string($GET_result));
-    				array_push($formated_sql, $where_equation);
-    				
-    			}
-    			if($sql_where_clause !== '')
-    			{
-    			$sql_where_clause .= ' AND ' . '(' . implode(' OR ',$formated_sql) . ')';
-    			}
-    			else $sql_where_clause = '(' . implode(' OR ',$formated_sql) . ')';
-    		}	
+    			$sql = "SELECT * FROM tl_ausschreibung WHERE $sql_where_clause ORDER BY start_date ASC";
+    		}
+    		else
+    		{
+    			$sql ="SELECT * FROM tl_ausschreibung ORDER BY start_date ASC";
+    		}
+    		$objAus = $this->run_query($sql, $this->Database);
+    		$full_list = true;
+    		
     	}
-    	
-    	if($sql_where_clause!== '')
+    	else //if this is NOT the page containing the whole Ausschreibungs list
     	{
-    		$sql = "SELECT * FROM tl_ausschreibung where $sql_where_clause order by start_date ASC";
-    	}
-    	else
-    	{
-    	    $sql ="SELECT * FROM tl_ausschreibung ORDER BY start_date ASC";	
-    	}
-    	if(strpos($current_page, $berichte_page) == false)
-    	{
-    		$objAus = $this->Database->prepare("SELECT * FROM tl_ausschreibung WHERE start_date >= UNIX_TIMESTAMP() ORDER BY start_date ASC")->limit(3)->execute(time());
+    		$sql = "SELECT * FROM tl_ausschreibung WHERE start_date >= UNIX_TIMESTAMP() ORDER BY start_date ASC";
+    		$objAus = $this->run_query($sqltmp, $this->Database, 3);
     		$full_list = false;
     	}
-    	else
-    	{
-    		$objAus = $this->Database->prepare($sql)->execute(time());
-    		$full_list = true;
-    	}
     	
-    	$objQuery = $this->Database->prepare("SELECT Distinct type FROM tl_ausschreibung")->execute(time());
+    	$typeSQL = "SELECT Distinct type FROM tl_ausschreibung";
+    	$objQuery = $this->run_query($typeSQL, $this->Database);
     	while($objQuery->next())
     	{
     		array_push($arrEventTypes,$objQuery->type);
     	}
     	
     	//Return if no Ausschreibungen were found
-    	if(!$objAus-numRows){ return;}
+    	if(!$objAus->numRows){ return;}
     	
     	$arrAus = array();
     	
@@ -117,7 +96,7 @@ class ModuleAusschreibungListFull extends Module
     		{
     			if($objAus->end_date != 0)
     			{
-    				$begin=new \DateTime();
+    				$begin = new \DateTime();
     				$end = new \DateTime();
     				$begin->setTimestamp((int)$objAus->start_date);
     				$end->setTimestamp((int)$objAus->end_date);
@@ -209,6 +188,8 @@ class ModuleAusschreibungListFull extends Module
     	
     	/**
     	 * Resolve teilnehmer field
+    	 * @value	string value
+    	 * @return	if $value contains JO, KiBe, FaBe or J&SKids it returnes that particular value in a string
     	 */
     	protected function get_RadiobuttonRes($value)
     	{
@@ -242,7 +223,6 @@ class ModuleAusschreibungListFull extends Module
     	 * @difference: time range to be considered from now
     	 * @return: true if the anmelde_schluss is within the timerange else false. Dates thate ade in the past fom now are all false
     	 */
-    	//
     	protected function print_anmelde_schluss($anmelde_schluss, $difference)
     	{
     		if($anmelde_schluss < time())
@@ -281,5 +261,102 @@ class ModuleAusschreibungListFull extends Module
 
     	}
     	
+    	/*
+    	 * TODO
+    	 */
+    	protected function SQL_query_builder($select, $from, $where = null)
+    	{
+    		$query = $select." ".$from;
+    		$query = $query.($where)?" ".$where:"";
+    	}
+    	
+    	/*
+    	 * Search the GET terms and build a query
+    	 * @param $url_query_fields		an array of key value paires containg the allowed query terms that are searched for in the GET string
+    	 * @return 						a string containing the where clause from the GET param
+    	 */
+    	protected function GET_SQLWhere_query_builder($url_query_fields)
+    	{
+    		$sql_where_clause = '';
+    		foreach ($url_query_fields as $term => $value)
+    		{
+    			if($_GET[$term] != NULL)
+    			{
+    				//$url_query_fields[$term]= true;
+    				//get an array of all the query results for one query terms (query results are comma separated)
+    				$GET_array = explode(',', $_GET[$term]);
+    				 
+    				//generate an sql statement using the array above
+    				$formated_sql = array();
+    				foreach ($GET_array as $GET_result)
+    				{
+    					$queryColumn = $term;
+    					//echo "-----".$url_query_fields[$term]."----";
+    					//echo "bjhbj " . strcmp($url_query_fields[$term], 'isYunger');
+    					if (strcmp($url_query_fields[$term], "like") === 0)
+    					{
+    						$where_equation = $this->like_query($queryColumn, $GET_result);
+    					}
+    					elseif (strcmp($url_query_fields[$term], "isOlder") === 0)
+    					{
+    						$queryColumn = "start_date";
+    						$where_equation = $this->date_setter($queryColumn, $GET_result, true);
+    					}
+    					elseif (strcmp($url_query_fields[$term], "isYunger") === 0)
+    					{
+    						$queryColumn = "start_date";
+    						$where_equation = $this->date_setter($queryColumn, $GET_result, false);
+    					}
+    					else
+    					{
+    						$where_equation = sprintf("%s = '%s'", mysql_escape_string($queryColumn), mysql_escape_string($GET_result));
+    					}
+    					array_push($formated_sql, $where_equation);
+    		
+    				}
+    				if($sql_where_clause !== '')
+    				{
+    					$sql_where_clause .= ' AND ' . '(' . implode(' OR ',$formated_sql) . ')';
+    				}
+    				else $sql_where_clause = '(' . implode(' OR ',$formated_sql) . ')';
+    			}
+    		}
+    		return $sql_where_clause;
+    	}
+    	
+    	protected function like_query($column, $GET_result)
+    	{
+    		return sprintf("%s LIKE '%%%s%%'", mysql_escape_string($column), $GET_result);
+    	}
+    	
+    	/*
+    	 * Create query when a time/date limit is given
+    	 * @column		DB column on which the query is done
+    	 * @Get_result	the get parameter from the DB
+    	 * @isOlder		determines wether the returned DB results are older or younger thatn the given date
+    	 * @return		returns a string containing the where clause from the date query in the Get string
+    	 */
+    	protected function date_setter($column, $Get_result, $isOlder)
+    	{
+    		$timestamp = strtotime($Get_result);
+    		$compare = ($isOlder)?'>=':'<=';
+    		$tmp = sprintf("%s %s '%s'", $column, $compare , $timestamp);
+    		return $tmp;
+    	}
+    	
+    	/*
+    	 * @sql_query	string containing the sql query to be executed
+    	 * @database	database connection to execute the query
+    	 * @limit		limit the amount of results returned: default = false
+    	 * @return		returns the query result
+    	 */
+    	private function run_query($sql_query, $database, $limit=false)
+    	{
+    		if($limit)
+    		{
+    			return $database->prepare($sql_query)->limit(3)->execute(time());
+    		}
+    		return $database->prepare($sql_query)->execute(time());
+    	}
             
 }
