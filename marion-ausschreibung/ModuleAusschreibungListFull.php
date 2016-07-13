@@ -16,6 +16,61 @@ class ModuleAusschreibungListFull extends Module
      */
     protected $strTemplate = 'mod_ausschreibunglistfull';
     
+    public function generate()
+    {
+    	if ($_SERVER['REQUEST_METHOD']=="POST" && \Environment::get('isAjaxRequest')) {
+    		$this->myGenerateAjax();
+    		exit;
+    	}
+    	return parent::generate();
+    }
+    
+    public function myGenerateAjax()
+    {
+    	// Ajax Requests verarbeiten
+    	if(\Environment::get('isAjaxRequest')) {
+    		header('Content-Type: application/json; charset=UTF-8');
+
+    		$url_query_fields = ["date_newest" => "isOlder", "date_oldest" => "isYunger", "type" => "normal", "teilnehmer" => "like"];
+    		$sql_where_clause= $this->GET_SQLWhere_query_builder($url_query_fields, false);
+    		
+    		if($sql_where_clause){
+    			$sql = "SELECT * FROM tl_ausschreibung WHERE" . $sql_where_clause . "ORDER BY start_date ASC";
+    			$objAus = $this->Database->prepare($sql)->execute(time());
+    		}
+    		else {
+    			echo json_encode("there is no value");
+    			exit;
+    		}
+    		
+    		$arrAus = false;
+    		
+    		while($objAus->next()) {
+    			$arrAus[] = array
+    			(
+    					'titel'				=> $objAus->titel,
+    					'ziel'				=> $objAus->ziel,
+    					'schwierigkeit'		=> $objAus->schwierigkeit,
+    					'route'				=> $objAus->route,
+    					'vorname_org'		=> $objAus->vorname_org,
+    					'name_org'			=> $objAus->name_org,
+    					'leiter_verantwortlich' => $objAus->leiter_verantwortlich,
+    					'leiter' 			=> $objAus->leiter,
+    					'text' 				=> $objAus->text,
+    					'teaser' 			=> $objAus->teaser,
+    					'schwierigkeit' 	=> $objAus->schwierigkeit,
+    					'type' 			    => $objAus->type,
+    			);
+    		}
+    		
+    		if($arrAus)
+    		    echo json_encode($arrAus);
+    		else 
+    			echo json_encode("there is no value");
+    		exit;
+    	}
+    }
+    
     /**
      * Generate the module
      */
@@ -39,7 +94,7 @@ class ModuleAusschreibungListFull extends Module
     	{
     		if($sql_where_clause!== '')
     		{
-    			$sql = "SELECT * FROM tl_ausschreibung WHERE $sql_where_clause ORDER BY start_date ASC";
+    			$sql = "SELECT * FROM tl_ausschreibung WHERE" . $sql_where_clause . "ORDER BY start_date ASC";
     		}
     		else
     		{
@@ -52,7 +107,8 @@ class ModuleAusschreibungListFull extends Module
     	else //if this is NOT the page containing the whole Ausschreibungs list
     	{
     		$sql = "SELECT * FROM tl_ausschreibung WHERE start_date >= UNIX_TIMESTAMP() ORDER BY start_date ASC";
-    		$objAus = $this->run_query($sqltmp, $this->Database, 3);
+    		//$objAus = $this->run_query($sqltmp, $this->Database, 3); //TODO there seems to be a bug when calling the function like this
+    		$objAus = $this->Database->prepare($sql)->limit(3)->execute(time());
     		$full_list = false;
     	}
     	
@@ -271,21 +327,30 @@ class ModuleAusschreibungListFull extends Module
     	}
     	
     	/*
-    	 * Search the GET terms and build a query
+    	 * Search the GET/POST terms and build a wher clause for a sql query
     	 * @param $url_query_fields		an array of key value paires containg the allowed query terms that are searched for in the GET string
+    	 * @param $get					if true the where clause is built on parameters of a GET request. Else the where clause is built for POST. 
     	 * @return 						a string containing the where clause from the GET param
     	 */
-    	protected function GET_SQLWhere_query_builder($url_query_fields)
+    	protected function GET_SQLWhere_query_builder($url_query_fields, $get = true)
     	{
     		$sql_where_clause = '';
     		foreach ($url_query_fields as $term => $value)
     		{
-    			if($_GET[$term] != NULL)
+    			$GET_array = "";
+    			
+    			if($get)
     			{
     				//$url_query_fields[$term]= true;
     				//get an array of all the query results for one query terms (query results are comma separated)
-    				$GET_array = explode(',', $_GET[$term]);
-    				 
+    				$GET_array = ($_GET[$term] != NULL)? explode(',', $_GET[$term]): "";
+    			}
+    			else {
+    				$GET_array = ($_POST[$term]!= NULL)? explode(',', $_POST[$term]): "";
+    			}
+    			
+    			if($GET_array != "") {
+    				    			
     				//generate an sql statement using the array above
     				$formated_sql = array();
     				foreach ($GET_array as $GET_result)
@@ -352,9 +417,13 @@ class ModuleAusschreibungListFull extends Module
     	 */
     	private function run_query($sql_query, $database, $limit=false)
     	{
+    		if(!$database){
+    			echo "no DB given!!!";
+    			return 0;
+    		}
     		if($limit)
     		{
-    			return $database->prepare($sql_query)->limit(3)->execute(time());
+    			return $database->prepare($sql_query)->limit($limit)->execute(time());
     		}
     		return $database->prepare($sql_query)->execute(time());
     	}
