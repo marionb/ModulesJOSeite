@@ -25,30 +25,35 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_ausschreibung']['titel'] = array('Touren Bezeichnung', 'erscheint unter diesem Namen im Jahresprogramm');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['start_date'] = array('Startdatum', 'Startdatum  in der Form YYYY-MM-DD');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['titel'] = array('Touren Bezeichnung', 'Erscheint unter diesem Namen im Jahresprogramm (max 50 Zeichen)');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['start_date'] = array('Startdatum', 'Startdatum in der Form YYYY-MM-DD');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['end_date'] = array('Enddatum', 'Enddatum, f&uuml;r Mehrt&auml;gige Touren, in der Form YYYY-MM-DD');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['anmelde_schluss'] = array('Anmeldeschluss', 'Datum in der Form YYYY-MM-DD');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['teaser'] = array('Kurzbeschrieb', '2-3 S&auml;tzen um auf die Tour aufmerksam zu machen. Wird im Jahresprogramm und auf der Webseite verwendet um auf die Tour aumerksam zu machen');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['ziel']=array('Gipfel/Klettergebiet','Wichtig f&uuml;r Anmeldung bei J+S; erscheint nicht auf der Website');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['schwierigkeit']=array('Schwierikeitsgrad','Schwierigkeitsgrad gemaess F&uuml;hrer. Verschiedene Skalen sind auf http://www.sac-cas.ch/unterwegs/schwierigkeits-skalen.html zu finden.');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['route']=array('Route','z.B Nummer aus SAC-F&uuml;hrer oder Beschreibung mit Quelle. Wird f&uuml;r J+S Anmeldung verwendet');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['vorname_org']=array('Vorname','');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['name_org']=array('Name','');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['leiter_verantwortlich']=array('Verantwortlicher Kursleiter/ Bergf&uuml;hrer','Diese Person tr&auml;gt gem&auml;ss J+S die Verantwortung');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['leiter']=array('Weiter Leiter','Name und Vorname; Wird auf der Hompage aufgef&uuml;rt und f&uuml;r J+S verwendet');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['text'] = array('Weitere Informationen', 'Weitere interessante Informationen fuer die Teilnehmer');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['treffpkt']=array('Treffpunkt','');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['rueckkehr']=array('R&uuml;ckkehr','');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['verpflegung']=array('Verpflegung','Was muss als Verpflegung mit gebracht werden; e.v Anzahl Lunch');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['anforderung']=array('Anforderung','Was ist die Anforderung an die Teilnehmer, was m&uuml;ssen Teilnehmer mindestes k&ouml;nnen');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['kosten']=array('Kosten','Falls noch nicht definitiv bekannt in ca. angeben');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['material']=array('Ausr&uuml;stung','');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['anmeldung']=array('Anmeldung','WIE, WO und mit welchen Angaben sollen sich die Teinehmer anmelden');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['teaser'] = array('Beschrieb der Tour', '2-3 S&auml;tzen um auf die Tour aufmerksam zu machen. Wird im Jahresprogramm und auf der Webseite verwendet um auf die Tour aumerksam zu machen (max 1000 Zeichen)');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['text'] = array('Weitere Informationen. Wird nur in der Detail information Angezeigt.', 'Weitere interessante Informationen fuer die Teilnehmer');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['type']=array('Art der Tour','');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['ziel']=array('Gipfel/Klettergebiet','Wichtig f&uuml;r Anmeldung bei J+S; erscheint nicht auf der Website (max 100 Zeichen)');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['schwierigkeit']=array('Schwierikeitsgrad','Schwierigkeitsgrad gemaess F&uuml;hrer. Verschiedene Skalen sind auf http://www.sac-cas.ch/unterwegs/schwierigkeits-skalen.html zu finden.(max 100 Zeichen)');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['route']=array('Route','z.B Nummer aus SAC-F&uuml;hrer oder Beschreibung mit Quelle. Wird f&uuml;r J+S Anmeldung verwendet(max 500 Zeichen)');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['teilnehmer']=array('Teilnehmerkreis','Bitte alle Zutreffenden ankreuzen');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['vorname_org']=array('Vorname Organisator','');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['name_org']=array('Name Organisator','');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['leiter_verantwortlich']=array('Verantwortlicher Kursleiter/ Bergf&uuml;hrer','Diese Person tr&auml;gt gem&auml;ss J+S die Verantwortung');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['leiter']=array('Weiter Leiter','Name und Vorname; Wird auf der Hompage aufgef&uuml;rt und f&uuml;r J+S verwendet (max 200 Zeichen)');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['treffpkt']=array('Treffpunkt','(max 100 Zeichen)');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['rueckkehr']=array('R&uuml;ckkehr','(max 100 Zeichen)');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['verpflegung']=array('Verpflegung','Was muss als Verpflegung mit gebracht werden; e.v anzahl Tage Lunch (max 500 Zeichen)');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['anforderung']=array('Anforderung','Was ist die Anforderung an die Teilnehmer, was m&uuml;ssen Teilnehmer mindestes k&ouml;nnen (max 200 Zeichen)');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['kosten']=array('Kosten','Falls noch nicht definitiv bekannt in ca. angeben (max 200 Zeichen). Bei Touren von einer Dauer mit mehr als 3 Tagen wir der Preis erst ver&ouml;ffentlicht wenn vom Lagercoach gepr&uuml;ft.');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['kosten1']=array('Weitere Kostenzeilen','(max 200 Zeichen).');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['kosten2']=array('Weitere Kostenzeilen','(max 200 Zeichen).');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['kosten3']=array('Weitere Kostenzeilen','(max 200 Zeichen).');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['material']=array('Ausr&uuml;stung/Material','');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['anmeldung']=array('Anmeldung','WIE, WO und mit welchen Angaben sollen sich die Teinehmer anmelden');
 $GLOBALS['TL_LANG']['tl_ausschreibung']['bilder']=array('Bild','Hier kann ein Bild f&uuml;r die Ausschreibung gew&auml;hlt werden');
-$GLOBALS['TL_LANG']['tl_ausschreibung']['show_price']=array('Preis anzeigen', 'preis auf der Webseite &ouml;ffentlich anzeigen.');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['beginner']=array('F&uuml;r Anf&auml;nger geeignet','');
+$GLOBALS['TL_LANG']['tl_ausschreibung']['show_price']=array('Preis anzeigen', 'Preis auf der Webseite &ouml;ffentlich anzeigen.');
+
 //$GLOBALS['TL_LANG']['tl_ausschreibung'][]=array('','');
 
 
