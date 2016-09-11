@@ -22,6 +22,10 @@ class ModuleAusschreibungListFull extends Module
     		$this->myGenerateAjax();
     		exit;
     	}
+    	elseif ($_SERVER['REQUEST_METHOD']=="GET") {
+    		$this->myGenerateAjax();
+    		exit;
+    	}
     	return parent::generate();
     }
     
@@ -43,25 +47,7 @@ class ModuleAusschreibungListFull extends Module
     			exit;
     		}
     		
-    		$arrAus = false;
-    		
-    		while($objAus->next()) {
-    			$arrAus[] = array
-    			(
-    					'titel'				=> $objAus->titel,
-    					'ziel'				=> $objAus->ziel,
-    					'schwierigkeit'		=> $objAus->schwierigkeit,
-    					'route'				=> $objAus->route,
-    					'vorname_org'		=> $objAus->vorname_org,
-    					'name_org'			=> $objAus->name_org,
-    					'leiter_verantwortlich' => $objAus->leiter_verantwortlich,
-    					'leiter' 			=> $objAus->leiter,
-    					'text' 				=> $objAus->text,
-    					'teaser' 			=> $objAus->teaser,
-    					'schwierigkeit' 	=> $objAus->schwierigkeit,
-    					'type' 			    => $objAus->type,
-    			);
-    		}
+    		$arrAus []= $this->generate_data_array($objAus);
     		
     		if($arrAus)
     		    echo json_encode($arrAus);
@@ -69,6 +55,7 @@ class ModuleAusschreibungListFull extends Module
     			echo json_encode("there is no value");
     		exit;
     	}
+
     }
     
     /**
@@ -114,6 +101,7 @@ class ModuleAusschreibungListFull extends Module
     	
     	$typeSQL = "SELECT Distinct type FROM tl_ausschreibung";
     	$objQuery = $this->run_query($typeSQL, $this->Database);
+    	//Externalize this
     	while($objQuery->next())
     	{
     		array_push($arrEventTypes,$objQuery->type);
@@ -204,7 +192,11 @@ class ModuleAusschreibungListFull extends Module
     		$this->Template->full_list = $full_list;
     		$this->Template->Ausschreibung = $arrAus;
     		$this->Template->EventTypes = array_unique($arrEventTypes);
-    	} 
+    	}
+    	if($arrAus)
+    		echo json_encode($arrAus);
+    	else
+    		echo json_encode("there is no value");
     }
     	
     	protected function datumswandler($Datum)
@@ -249,53 +241,31 @@ class ModuleAusschreibungListFull extends Module
     	 */
     	protected function get_RadiobuttonRes($value)
     	{
-    		$result = [];
-    		if(is_null($value))
-    		{
-    			return NULL;
-    		}    		
-    		if (preg_match('/\bJO\b/',$value))
-    		{
-    			array_push($result, "JO");
-    		}
-    		if (preg_match("/\bKiBe\b/", $value))
-    		{
-    			array_push($result, "KiBe");
-    		}
-    		if (preg_match('/\bFaBe\b/', $value))
-    		{
-    			array_push($result, "FaBe");
-    		}
-    		if (preg_match('/\bKids\b/', $value))
-    		{
-    			array_push($result, "J+S Kids");
-    		}
+    		$result = [];//['JO'=>false, 'KiBe'=>false, 'Fabe'=>false, 'Kids'=>false];
+    		if(is_null($value)) { return NULL; }    		
+    		if (preg_match('/\bJO\b/',$value)) { array_push($result, 'JO'); }
+    		if (preg_match('/\bKiBe\b/', $value)) { array_push($result, 'KiBe'); }
+    		if (preg_match('/\bFaBe\b/', $value)) { array_push($result, 'FaBe'); }
+    		if (preg_match('/\bKids\b/', $value)) { array_push($result, 'J+SKids'); }    		
     		return $result;
     	}
     	
     	/*
     	 * function returnes checks if the anmelde_schluss lies in a given time range from now
-    	 * @anmelde_schluss: timestamp of the anmelde_schluss
-    	 * @difference: time range to be considered from now
-    	 * @return: true if the anmelde_schluss is within the timerange else false. Dates thate ade in the past fom now are all false
+    	 * @param anmelde_schluss: timestamp of the anmelde_schluss
+    	 * @param difference: time range to be considered from now
+    	 * @param return: true if the anmelde_schluss is within the timerange else false. Dates thate ade in the past fom now are all false
     	 */
-    	protected function print_anmelde_schluss($anmelde_schluss, $difference)
-    	{
-    		if($anmelde_schluss < time())
-    			return false;
+    	protected function print_anmelde_schluss($anmelde_schluss, $difference) {
+    		if($anmelde_schluss < time()) { return false; }
 
     		$tmp = ($anmelde_schluss - time())/3600;
-    		if($tmp <= $difference)
-    		{
+    		if($tmp <= $difference) {
     			$unit = "";
-    			if($tmp < 24)
-    			{
+    			if($tmp < 24) {
     				$tmp = round($tmp);
-    				if($tmp == 1)
-    				{
-    					$unit = " Stunde";
-    				}
-    				else $unit = " Stunden";
+    				if($tmp == 1) { $unit = " Stunde"; }
+    				else { $unit = " Stunden"; }
     					
     				return $tmp . $unit;
     			} 
@@ -427,5 +397,119 @@ class ModuleAusschreibungListFull extends Module
     		}
     		return $database->prepare($sql_query)->execute(time());
     	}
-            
+    	
+    	/*
+    	 * generate an array that can be used in the html template with JS from the DB data
+    	 * @param {} dataObj the data object that was returned by the DB query
+    	 */
+        private function generate_data_array($dataObj) {
+        	if(!$dataObj->numRows){ return;}
+        	 
+        	$arrObj = array();
+        	 
+        	while ($dataObj->next()) {
+        		$objIMG = null;
+        		$objIMGText = null;
+        		
+        		//TODO: Place this in a separate function for better readability --> $this->getImage()
+        		if($dataObj->bilder != '') {
+        			$objModel = \FilesModel::findByUuid($dataObj->bilder);
+        			 
+        			if($objModel === null) {
+        				if(!\Validator::isUuid($dataObj->bilder)) {
+        					$objIMGText = '<p class="error">'.$GLOBALS['TL_LANG']['ERR']['version2format'].'</p>';
+        				}
+        			} elseif (is_file(TL_ROOT . '/' . $objModel->path)) {
+        				$objIMG = $objModel->path;
+        			}
+        		}
+                //TODO: Test this function
+        		$cost = $this->get_costs($dataObj->show_price, $dataObj->start_date, $dataObj->end_date, $dataObj->kosten);
+
+        		$arrObj[] = array
+        		(
+        				'titel'					=> $dataObj->titel,
+						'date'					=> $this->render_date($dataObj->start_date, $dataObj->end_date),
+        				'anmelde_schluss'		=> $this->datumswandler(date('Y-m-d', (int)$dataObj->anmelde_schluss)),
+        				'show_anmelde_schluss'	=> $this->print_anmelde_schluss((int)$dataObj->anmelde_schluss, 168),
+        				'ziel'					=> $dataObj->ziel,
+        				'schwierigkeit'			=> $dataObj->schwierigkeit,
+        				'route'					=> $dataObj->route,
+        				'vorname_org'			=> $dataObj->vorname_org,
+        				'name_org'				=> $dataObj->name_org,
+        				'leiter_verantwortlich' => $dataObj->leiter_verantwortlich,
+        				'leiter' 				=> $dataObj->leiter,
+        				'text' 					=> $dataObj->text,
+        				'teaser' 				=> $dataObj->teaser,
+        				'schwierigkeit'		 	=> $dataObj->schwierigkeit,
+        				'type' 			   		=> $dataObj->type,
+        				'treffpkt' 				=> $dataObj->treffpkt,
+        				'rueckkehr' 			=> $dataObj->rueckkehr,
+        				'verpflegung' 			=> $dataObj->verpflegung,
+        				'anforderung' 			=> $dataObj->anforderung,
+        				'kosten' 				=> $cost,
+        				'material' 				=> $dataObj->material,
+        				'anmeldung' 			=> $dataObj->anmeldung,
+        				'bilder'				=> $objIMG,
+        				'imgText'				=> $objIMGText,
+        				'id'					=> $dataObj->id,
+        				'URL'					=> $BASE_URL . "?id=" . $dataObj->id,
+        				'teilnehmer'			=> $this->get_RadiobuttonRes($dataObj->teilnehmer)
+        		);        	
+        	}
+        	return $arrObj;
+        	
+        }
+        
+        /**
+         * render the date start + end
+         * @param {date} start_date The starting date of the Event
+         * @param {date|null} end_date The ending date of the Event
+         */
+        private function render_date($start_date, $end_date) {
+        	$start = $this->datumswandler(date('Y-m-d', (int)$start_date));
+        	$end = $this->datumswandler_checkZero($end_date);
+       		$textDate = ($end !== false)? " bis " . $end : "";
+       		return $start . $textDate;
+
+        }
+        
+        /**
+         * Get Images TODO
+         */
+        /*private function getImage() {
+        	//TODO
+        }*/
+        
+        
+        /**
+         * Deciper the text for the cost.
+         * @param {bool} showCost True if costs of an Event are free to show
+         * @param {int} beginnDate Starting date of the Event
+         * @param {int=} endDate Ending date of the Event. If there is no end date the Event is assumed to be only one Day
+         * @param {int=} costs The costs of the event. Can be null if no cost is given
+         * @return {string|int} If the cost is not validated or not available a string with an apropriate text is returned. Othervies an int with the cost of the Event
+         */
+        private function get_costs($showCost, $beginnDate, $endDate = null, $costs = null) {
+        	$showCostsLater = "Werden zu einem sp&auml;teren Zeitpukt bekannt gegeben.";
+        	$interval = 0;
+        	
+        	//nothing to be shown so returne right away
+        	if($costs === null) {
+        		return $showCostsLater;
+        	}
+        	
+        	if(endDate !== null) {
+        		$begin = new \DateTime();
+        		$end = new \DateTime();
+        		$begin->setTimestamp((int) $beginnDate);
+        		$end->setTimestamp((int) $endDate);
+        		$interval = $begin->diff($end, true);
+        		$interval = (int)$interval->days;
+        	}
+        	
+        	if($interval <= 2 || $showCost){
+        		return $costs;
+        	} else {return $showCostsLater;}
+        }
 }
