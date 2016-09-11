@@ -91,7 +91,7 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        /*---------------Palettes-----------------*/
        'palettes' => array(
               '__selector__' => array(),
-              'default' => '{Titel}, titel; {Zeit}, start_date, end_date, anmelde_schluss; {Tourenbeschrieb}, teaser, text, ziel, schwierigkeit, beginner, route, teilnehmer, type; {Angaben zum Organisator (Diese Person ist zustaendig fuer die Administration)}, vorname_org, name_org; {Leitung und Verantwortliche}, leiter_verantwortlich, leiter; {Detailangaben falls bereits bekannt}, text, treffpkt, rueckkehr, verpflegung, anforderung, material, anmeldung; {Kosten}, kosten, kosten1, kosten2, kosten3, show_price; {Bilder hoch laden}, bilder',
+              'default' => '{Titel}, titel; {Zeit}, start_date, end_date, anmelde_schluss; {Tourenbeschrieb}, teaser, text, ziel, schwierigkeit, beginner, route, teilnehmer, type; {Angaben zum Organisator (Diese Person ist zustaendig fuer die Administration)}, vorname_org, name_org; {Leitung und Verantwortliche}, leiter_verantwortlich, leiter; {Detailangaben falls bereits bekannt}, treffpkt, rueckkehr, anforderung, verpflegung, material, anmeldung; {Kosten}, kosten, show_price; {Bilder hoch laden}, bilder',
        ),
        /*----------------Fields-------------------*/
        'fields' => array(
@@ -153,8 +153,9 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
 					'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['teaser'],
 					'exclude'                 => true,
 					'search'                  => true,
-					'inputType'               => 'text',
+					'inputType'               => 'textarea',
 					'eval'                    => array(
+							'rte'			  => 'tinyCustom',
 							'maxlength'		  => 1000,
 							'tl_class'		  =>'long',
 							'mandatory'		  => true
@@ -165,8 +166,12 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        		    		'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['text'],
        		    		'exclude'                 => true,
        		    		'search'                  => false,
-       		    		'inputType'               => 'text',
-       		    		'eval'                    => array('tl_class'=>'long'),
+       		    		'inputType'               => 'textarea',
+       		    		'eval'                    => array(
+       		    				'rte'		=> 'tinyCustom',
+       		    				'allowHtml'	=> false,
+       		    				'tl_class'	=> 'long'
+       		    		        ),
        		    		'sql'                     => 'text NULL'
        		    ),
 				'type'  => array
@@ -316,8 +321,10 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['verpflegung'],
        				'exclude'                 => true,
        				'search'                  => true,
-       				'inputType'               => 'text',
+       				'inputType'               => 'textarea',
        				'eval'                    => array(
+       						'rte'			  => 'tinyCustom',
+       						'allowHtml'		  => false,
        						'maxlength'		  => 500,
        						'tl_class'		  =>'long',
        						'mandatory'		  => false
@@ -338,49 +345,15 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        		),
        		'kosten' => array(
        				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['kosten'],
-       				'exclude'                 => true,
+       				'exclude'                 => true,       				
        				'search'                  => false,
-       				'inputType'               => 'text',
+       				'inputType'               => 'textarea',
        				'eval'                    => array(
-       				      'maxlength'		  => 200,
-       				      'tl_class'		  =>'long',
-       				      'mandatory'		  => false
-       						),
-       				'sql'                     => "varchar(200) NOT NULL default ''"
-       		),
-       		'kosten1' => array(
-       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['kosten'],
-       				'exclude'                 => true,
-       				'search'                  => false,
-       				'inputType'               => 'text',
-       				'eval'                    => array(
-       						'maxlength'		  => 200,
-       						'tl_class'		  =>'long',
-       						'mandatory'		  => false
-       				),
-       				'sql'                     => "varchar(200) NOT NULL default ''"
-       		),
-       		'kosten2' => array(
-       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['kosten'],
-       				'exclude'                 => true,
-       				'search'                  => false,
-       				'inputType'               => 'text',
-       				'eval'                    => array(
-       						'maxlength'		  => 200,
-       						'tl_class'		  =>'long',
-       						'mandatory'		  => false
-       				),
-       				'sql'                     => "varchar(200) NOT NULL default ''"
-       		),
-       		'kosten3' => array(
-       				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['kosten'],
-       				'exclude'                 => true,
-       				'search'                  => false,
-       				'inputType'               => 'text',
-       				'eval'                    => array(
-       						'maxlength'		  => 200,
-       						'tl_class'		  =>'long',
-       						'mandatory'		  => false
+       						'rte'		=> 'tinyFlash',
+       						'allowHtml'	=> false,
+       						'maxlength' => 200,
+       						'mandatory'	=> false,
+       						'tl_class'	=> 'long'
        				),
        				'sql'                     => "varchar(200) NOT NULL default ''"
        		),
@@ -388,20 +361,30 @@ $GLOBALS['TL_DCA']['tl_ausschreibung'] = array(
        				'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['material'],
        				'exclude'                 => true,
        				'search'                  => false,
-       				'inputType'               => 'text',
+       				'inputType'               => 'textarea',
        				'eval'                    => array(
-       						'tl_class'        => 'long',
-       						'mandatory'       => false),
+       						'rte'		=> 'tinyCustom',
+       						'tl_class'	=> 'long',
+       						'allowHtml'	=> false,
+       						'decodeEntities'	=> true,
+       						'maxlength' => 500,
+       						'mandatory'	=> false),
+       				'default'				  =>'***Bitte Editieren***
+       				                             Kletterhelm, 
+       				                             Klettergurt, 
+       				                             Klerrerfinken, 
+       				                             Magnesia',
        				'sql'                     => "text NOT NULL default ''"
-       		),
+       		),     		
 			'anmeldung' => array(
 					'label'                   => &$GLOBALS['TL_LANG']['tl_ausschreibung']['anmeldung'],
 					'exclude'                 => true,
        				'search'                  => false,
-       				'inputType'               => 'text',
+       				'inputType'               => 'textarea',
        				'eval'                    => array(
+       						'rte'			  => 'tinyCustom',
        						'tl_class'        => 'long',
-       						'mandatory'       => false),
+       						'mandatory'       => true),
        				'sql'                     => "text NOT NULL default ''"
        		),
        		'bilder' => array
@@ -474,48 +457,6 @@ class tl_ausschreibung extends Backend
               }
        }
 
-
-       /**
-        * @param DataContainer $dc
-        */
-       /*public function ondeleteCb_delPraesenzkontrolle(DataContainer $dc)
-       {
-
-              $objDb = $this->Database->prepare('SELECT * FROM tl_praesenzkontrolle WHERE pid=?')->execute($dc->id);
-              while ($objDb->next())
-              {
-                     $objDel = $this->Database->prepare('DELETE FROM tl_praesenzkontrolle WHERE id=?')->execute($objDb->id);
-                     if ($objDel->affectedRows)
-                     {
-                            $this->log('DELETE FROM tl_praesenzkontrolle WHERE id=' . $objDb->id, __CLASS__ . ' ' . __FUNCTION__ . '()', TL_GENERAL);
-                     }
-              }
-
-       }
-
-
-       public function setUpPalettes()
-       {
-
-              if ($this->User->isAdmin)
-              {
-                     $GLOBALS['TL_DCA']['tl_jahresprogramm']['list']['global_operations']['csv_import'] = array(
-                            'label' => &$GLOBALS['TL_LANG']['tl_jahresprogramm']['global_operation_csv_import'],
-                            'href' => '&act=create&mode=csv_import',
-                            'class' => 'page_excel',
-                            'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"'
-                     );
-
-                     if ($this->Input->get('act') == 'edit' && $this->Input->get('mode') == 'csv_import')
-                     {
-                            $GLOBALS['TL_DCA']['tl_jahresprogramm']['list']['sorting']['panelLayout'] = '';
-                            $GLOBALS['TL_DCA']['tl_jahresprogramm']['palettes']['default'] = $GLOBALS['TL_DCA']['tl_jahresprogramm']['palettes']['csv_import'];
-                     }
-              }
-
-       }*/
-
-
        public function stripTagsSaveCallback($feldwert)
        {
 
@@ -525,111 +466,7 @@ class tl_ausschreibung extends Backend
        }
 
 
-    /*   public function importCsv()
-       {
-
-              if (!$this->Input->post('singleSRC') && $this->Input->post("importSql") == "")
-              {
-                     return;
-              }
-
-              //sql-import
-              if ($this->Input->postRaw("importSql") != "")
-              {
-                     //Tabelle(n) leeren
-                     if ($this->Input->post('deleteTlPraesenzkontrolle'))
-                     {
-                            $this->Database->execute("TRUNCATE tl_praesenzkontrolle");
-                            $this->log('Table "tl_praesenzkontrolle" has been truncated.', __CLASS__ . ' ' . __FUNCTION__ . '()', TL_GENERAL);
-
-                     }
-                     $this->Database->execute("TRUNCATE tl_jahresprogramm");
-                     $this->log('Table "tl_jahresprogramm" has been truncated.', __CLASS__ . ' ' . __FUNCTION__ . '()', TL_GENERAL);
-                     $this->Database->query($this->Input->postRaw("importSql"));
-                     $this->redirect('contao/main.php?do=jahresprogramm');
-                     return;
-              }
-
-              //csv-Import
-              if (!is_file(TL_ROOT . '/' . $this->Input->post('singleSRC')))
-              {
-                     return;
-              }
-              // Wichtig!!!
-               // csv-Datei muss im editor unbedingt mit der Zeichencodierung utf-8 abgespeichert werden,
-               // da ansonsten die Umlaute nicht richtig dargestellt werden!
-               //
-              //Tabelle(n) leeren
-              $this->Database->execute("TRUNCATE tl_jahresprogramm");
-              $this->log('Table "tl_jahresprogramm" has been truncated.', __CLASS__ . ' ' . __FUNCTION__ . '()', TL_GENERAL);
-
-              if ($this->Input->post('deleteTlPraesenzkontrolle'))
-              {
-                     $this->Database->execute("TRUNCATE tl_praesenzkontrolle");
-                     $this->log('Table "tl_praesenzkontrolle" has been truncated.', __CLASS__ . ' ' . __FUNCTION__ . '()', TL_GENERAL);
-              }
-
-              $file = new File($this->Input->post('singleSRC'));
-
-              // Wichtig!!!
-              // Jede Zeile muss mit dem String 'lineEnd' (=Inhalt der letzten Spalte) markiert werden!
-              //
-              $ArrContent = explode(';lineEnd', $file->getContent());
-              //Datei zeilenweise einlesen
-
-              $line = 0;
-              foreach ($ArrContent as $strLine)
-              {
-                     if ($line === 0)
-                     {
-                            $arrFieldnames = explode(';', str_replace("?", "", utf8_decode($strLine)));
-                            $line += 1;
-                     }
-                     else
-                     {
-                            //Zeilenumbr�che tempor�r durch **<BR>## ersetzen, da das Feld 'kommentar' ein textarea-Feld mit Zeilenumbr�chen sein kann
-                            $strLine = str_replace(chr(10), "**<BR>##", $strLine);
-                            $strLine = substr($strLine, 9);
-                            //echo $strLine .chr(10)."<br>";
-                            $arrContent = explode(';', $strLine);
-                            $indexField = 0;
-                            $set = array();
-                            foreach ($arrFieldnames as $fieldname)
-                            {
-                                   if ($fieldname == "id")
-                                   {
-                                          //auto_increment
-                                   }
-                                   elseif ($fieldname == "kw")
-                                   {
-                                          //kw wird automatisch gesetzt
-                                          $set[$fieldname] = "";
-                                   }
-                                   //Datum in der Form j.n.Y (ohne f�hrende Nullen!!!) in der Textdatei ablegen
-                                   elseif ($fieldname == "start_date" || $fieldname == "end_date")
-                                   {
-                                          $arrDate = explode(".", $arrContent[$indexField]);
-                                          //int mktime ([ int $hour = date("H") [, int $minute = date("i") [, int $second = date("s") [, int $month = date("n") [, int $day = date("j") [, int $year = date("Y") [, int $is_dst = -1 ]]]]]]] )
-                                          $set[$fieldname] = mktime(0, 0, 0, (int)$arrDate[1], (int)$arrDate[0], (int)$arrDate[2]);
-                                   }
-                                   else
-                                   {
-                                          $set[$fieldname] = $arrContent[$indexField] == "" ? "" : trim(str_replace("**<BR>##", chr(10), $arrContent[$indexField]));
-                                          $set[$fieldname] = str_replace("<br>", chr(10), $set[$fieldname]);
-                                   }
-                                   $indexField++;
-                            }
-                            //Wichtig! Da Datens�tze durch revise table in DC_Table.php wieder gel�scht werden
-                            $set["tstamp"] = time();
-
-                            $objDb = $this->Database->prepare("INSERT INTO tl_jahresprogramm %s")->set($set)->executeUncached();
-                            $this->log(sprintf('A new version of %s ID %s has been created', 'tl_jahresprogramm', $objDb->insertId), __CLASS__ . ' ' . __FUNCTION__ . '()', TL_GENERAL);
-                            $line += 1;
-                     }
-              }
-              $this->redirect('contao/main.php?do=jahresprogramm');
-       }
-*/
+    
 
        //formatiert das Datum vom unixTimestamp in Y-m-d
        public function formatDate($var, DataContainer $dc)
@@ -638,44 +475,6 @@ class tl_ausschreibung extends Backend
               $datum = date("Y-m-d", $var);
               return $datum;
        }
-
-
-       /*public function labelCallback($row, $label)
-       {
-
-              $label = str_replace('#datum#', date('Y-m-d', (int)$row['start_date']), $label);
-
-              $mysql = $this->Database->prepare('SELECT start_date FROM tl_ausschreibung WHERE id=?')->execute($row['id']);
-
-              if (time() > $row['start_date'])
-              {
-                     $status = '<div style="display:inline; padding-right:4px;"><img src="system/modules/mcupic_jahresprogramm/html/checkmark.png" alt="history" title="abgelaufen"></div>';
-              }
-              else
-              {
-                     $status = '<div style="display:inline; padding-right:0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>';
-              }
-              $label = str_replace('#STATUS#', $status, $label);
-              return $label;
-       }*/
-
-
-       /*erstellt anhand des startDatums in der db die Kalenderwoche in der der Anlass stattfindet*/
-       /*public function setKalenderwocheToDb()
-       {
-
-              $date = $this->Database->prepare("SELECT start_date,id FROM tl_jahresprogramm")->execute();
-              while ($row = $date->next())
-              {
-                     if ($row->start_date == "")
-                     {
-                            return;
-                     }
-                     $setKw = $this->Database->prepare("UPDATE tl_jahresprogramm SET kw = ? WHERE id = ?");
-                     $setKw->execute(date("W", $row->start_date), $row->id);
-              }
-       }
-*/
 
        public function hideEndDateWhenEmpty(DataContainer $dc)
        {
